@@ -13,6 +13,10 @@ use Respect\Validation\Validator as v;
  **/
 class Deposit
 {
+    const STATUS_OPEN = 1;
+
+    const STATUS_PROCESSED = 2;
+
     /**
      * @Id @Column(type="string", length=128) @GeneratedValue(strategy="UUID")
      * @var string
