@@ -2,6 +2,7 @@ vendor/*
 composer.lock
 .idea/*
 app/Data/*.xls
+app/Backup/*
 app/Logs/*.log
 app/Templates/Cache/*
 !app/Templates/Cache/.gitkeep

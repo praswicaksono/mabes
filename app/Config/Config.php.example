@@ -5,7 +5,7 @@ $config =  [
     "database"  =>  [
         "driver" => "pdo_mysql",
         "user"  => "root",
-        "password" => "123",
+        "password" => "Blink182",
         "dbname" => "mabes"
     ],
     "theme" => "default",
