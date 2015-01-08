@@ -95,7 +95,7 @@ class Deposit
      * @PrePersist
      * @PreUpdate
      */
-    public function validatie()
+    public function validate()
     {
         v::float()->assert($this->amount_idr);
         v::float()->assert($this->amount_usd);
