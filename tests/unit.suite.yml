@@ -1,0 +1,9 @@
+# Codeception Test Suite Configuration
+
+# suite for unit (internal) tests.
+class_name: UnitTester
+modules:
+    enabled: [Asserts, UnitHelper, Mockery, Doctrine2]
+config:
+    Doctrine2:
+        cleanup: true
