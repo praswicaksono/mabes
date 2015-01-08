@@ -1,6 +1,6 @@
 <?php
 
-$routing = [
+return [
     [
         "http_method" => "get",
         "route" => "/hello",

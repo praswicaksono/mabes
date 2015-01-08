@@ -1,11 +1,11 @@
 <?php
 
-$config =  [
+return [
     "site_name" =>  "Just Another IB Portal",
     "database"  =>  [
         "driver" => "pdo_mysql",
         "user"  => "root",
-        "password" => "Blink182",
+        "password" => "123",
         "dbname" => "mabes"
     ],
     "theme" => "default",
