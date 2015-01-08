@@ -3,5 +3,6 @@ composer.lock
 .idea/*
 app/Data/*.xls
 app/Logs/*.log
-!app/Templates/Cache/.gitkeep
 app/Templates/Cache/*
+!app/Templates/Cache/.gitkeep
+app/Config/Config.php

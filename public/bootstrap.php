@@ -24,7 +24,7 @@ $app->container->singleton(
 $app->container->singleton(
     "config",
     function () {
-        require __DIR__ . "/../app/Config/Config.php";
+        require __DIR__ . "/../app/Config/Config.php.example";
         return $config;
     }
 );
