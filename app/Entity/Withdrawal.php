@@ -119,6 +119,7 @@ class Withdrawal
     public function beforeInsert()
     {
         $this->created_at =  new \DateTime();
+        $this->updated_at =  new \DateTime();
     }
 
     /**
