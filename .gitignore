@@ -3,6 +3,7 @@ composer.lock
 .idea/*
 app/Data/*.htm
 app/Backup/*
+!app/Backup/Statement
 !app/Backup/.gitkeep
 app/Backup/Statement/*
 !app/Backup/Statement/.gitkeep
