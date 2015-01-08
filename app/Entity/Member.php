@@ -3,6 +3,7 @@
 
 namespace Mabes\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Respect\Validation\Validator as v;
 
 /**
@@ -49,6 +50,22 @@ class Member
     protected $register_date;
 
     /**
+     * @OneToMany(targetEntity="Withdrawal", mappedBy="client")
+     * @var Withdrawal[]
+     **/
+    protected $withdrawals = null;
+
+    public function __construct()
+    {
+        $this->withdrawals = new ArrayCollection();
+    }
+
+    public function addWithdrawal($withdrawal)
+    {
+        $this->withdrawals[] = $withdrawal;
+    }
+
+    /**
      * @PrePersist @PreUpdate
      */
     public function validate()
@@ -63,7 +80,7 @@ class Member
         v::alnum()->assert($this->country);
 
         // phone validation
-        v::alnum("+")->startsWith("+")->assert($this->phone);
+        v::numeric("+")->startsWith("+")->assert($this->phone);
 
         // email validation
         v::email()->assert($this->email);
