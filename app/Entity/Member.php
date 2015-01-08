@@ -55,14 +55,36 @@ class Member
      **/
     protected $withdrawals = null;
 
+    /**
+     * @OneToMany(targetEntity="Deposit", mappedBy="client")
+     * @var Deposit[]
+     **/
+    protected $deposits = null;
+
     public function __construct()
     {
         $this->withdrawals = new ArrayCollection();
+        $this->deposits = new ArrayCollection();
     }
 
     public function addWithdrawal($withdrawal)
     {
         $this->withdrawals[] = $withdrawal;
+    }
+
+    public function getWithdrawals()
+    {
+        return $this->withdrawals;
+    }
+
+    public function addDeposit($deposit)
+    {
+        $this->deposits[] = $deposit;
+    }
+
+    public function getDeposits()
+    {
+        return $this->deposits;
     }
 
     /**
