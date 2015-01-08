@@ -72,9 +72,19 @@ class Member
         $this->withdrawals[] = $withdrawal;
     }
 
+    public function getWithdrawals()
+    {
+        return $this->withdrawals;
+    }
+
     public function addDeposit($deposit)
     {
         $this->deposits[] = $deposit;
+    }
+
+    public function getDeposits()
+    {
+        return $this->deposits;
     }
 
     /**
