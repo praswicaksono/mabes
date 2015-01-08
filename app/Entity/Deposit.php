@@ -7,7 +7,7 @@ namespace Mabes\Entity;
 use Respect\Validation\Validator as v;
 
 /**
- * @Entity
+ * @Entity(repositoryClass="DepositRepository")
  * @Table(name="deposit", indexes={@Index(name="search_idx", columns={"updated_at", "created_at"})})
  * @HasLifecycleCallbacks
  **/
@@ -117,6 +117,7 @@ class Deposit
     public function beforeInsert()
     {
         $this->created_at = new \DateTime();
+        $this->updated_at =  new \DateTime();
     }
 
     /**
@@ -196,6 +197,7 @@ class Deposit
      */
     public function setBank($bank)
     {
+        $bank->addDeposit($this);
         $this->bank = $bank;
     }
 
@@ -212,7 +214,6 @@ class Deposit
      */
     public function setBankFrom($bank_from)
     {
-        $bank_from->addDeposit($this);
         $this->bank_from = $bank_from;
     }
 
