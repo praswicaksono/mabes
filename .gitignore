@@ -1,8 +1,11 @@
 vendor/*
 composer.lock
 .idea/*
-app/Data/*.xls
+app/Data/*.htm
 app/Backup/*
+!app/Backup/.gitkeep
+app/Backup/Statement/*
+!app/Backup/Statement/.gitkeep
 app/Logs/*.log
 app/Templates/Cache/*
 !app/Templates/Cache/.gitkeep

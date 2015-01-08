@@ -5,6 +5,7 @@ $config =  [
     "database"  =>  [
         "driver" => "pdo_mysql",
         "user"  => "root",
+        "host" => "127.0.0.1",
         "password" => "",
         "dbname" => "mabes"
     ],
