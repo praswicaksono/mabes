@@ -3,6 +3,7 @@
 
 namespace Mabes\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Respect\Validation\Validator as v;
 
 /**
@@ -29,6 +30,27 @@ class Bank
      * @var string
      */
     protected $bank_account;
+
+    /**
+     * @OneToMany(targetEntity="Deposit", mappedBy="bank_from")
+     * @var Deposit[]
+     **/
+    protected $deposits = null;
+
+    public function __construct()
+    {
+        $this->deposits = new ArrayCollection();
+    }
+
+    public function addDeposit($deposit)
+    {
+        $this->deposits[] = $deposit;
+    }
+
+    public function getDeposits()
+    {
+        return $this->deposits;
+    }
 
     /**
      * @PrePersist @PreUpdate
