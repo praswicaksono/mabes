@@ -10,7 +10,7 @@ class HelloController extends BaseController
     {
         $this->app->log->info("requesting /hello/:name");
 
-        $this->app->render("index.html", ["name" => "Jowy"]);
+        $this->app->render("index.html");
     }
 }
 

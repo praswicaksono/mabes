@@ -3,7 +3,7 @@
 # suite for unit (internal) tests.
 class_name: UnitTester
 modules:
-    enabled: [Asserts, UnitHelper, Mockery, Doctrine2]
+    enabled: [Asserts, UnitHelper, Doctrine2]
 config:
     Doctrine2:
         cleanup: true
