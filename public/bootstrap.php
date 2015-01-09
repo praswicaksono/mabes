@@ -6,38 +6,42 @@ use Doctrine\ORM\EntityManager;
 define("APP_DIR", __DIR__ . "/../app/");
 define("PUBLIC_DIR", __DIR__);
 
-$app = new \Slim\Slim([
-    "templates.path" => __DIR__ . "/../app/Templates"
-]);
+$config = require __DIR__ . "/../app/Config/Config.php";
 
-// load log module
-$app->container->singleton(
-    "log",
-    function () {
-        $log = new \Monolog\Logger("ib-portal");
-        $log->pushHandler(new \Monolog\Handler\StreamHandler(__DIR__ . "/../app/Logs/app.log"), \Monolog\Logger::DEBUG);
-        return $log;
-    }
-);
+$app = new \Slim\Slim([
+    "mode" => $config["environment"],
+    "templates.path" => __DIR__ . "/../app/Templates",
+    "log.enabled" => true,
+    "cookies.encrypt" => true,
+    "cookies.domain" => $config["session"]["domain"],
+    "cookies.path" => $config["session"]["domain"],
+    "cookies.lifetime" => "20 minutes",
+    "cookies.secure" => $config["session"]["secure"],
+    "cookies.httponly" => $config["session"]["httponly"],
+    'cookies.secret_key' => $config["secret_key"],
+    'cookies.cipher' => MCRYPT_RIJNDAEL_256,
+    'cookies.cipher_mode' => MCRYPT_MODE_CBC
+]);
 
 // load general config
 $app->container->singleton(
     "config",
-    function () {
-        $config = require __DIR__ . "/../app/Config/Config.php";
+    function () use ($config) {
         return $config;
     }
 );
+
 
 // view configuration
 $app->view(new \Slim\Views\Twig());
 
 $app->view->parserOptions = [
-    'charset' => 'utf-8',
-    'cache' => __DIR__ . "/../app/Templates/Cache",
-    'auto_reload' => true,
-    'strict_variables' => false,
-    'autoescape' => true
+    "debug" => ($config["environment"] == "development") ? true : false,
+    "charset" => "utf-8",
+    "cache" => __DIR__ . "/../app/Templates/Cache",
+    "auto_reload" => ($config["environment"] == "development") ? true : false,
+    "strict_variables" => false,
+    "autoescape" => true
 ];
 
 $app->view->parserExtensions = array(new \Slim\Views\TwigExtension());
@@ -45,17 +49,15 @@ $app->view->parserExtensions = array(new \Slim\Views\TwigExtension());
 // load database module
 $app->container->singleton(
     "em",
-    function () use ($app) {
+    function () use ($config) {
         $entity_path = [__DIR__ . "/../app/Entity"];
 
         // the connection configuration
-        $config = Setup::createAnnotationMetadataConfiguration($entity_path, $app->config["dev"]);
-        return EntityManager::create($app->config["database"], $config);
+        $db_conn = Setup::createAnnotationMetadataConfiguration($entity_path, ($config["environment"]) ? true : false);
+        return EntityManager::create($config["database"], $db_conn);
     }
 );
 
-// session manager middleware
-$app->add(new \RKA\SessionMiddleware($app->config["session"]));
 
 // session manager
 $app->container->singleton(
@@ -65,8 +67,13 @@ $app->container->singleton(
     }
 );
 
+// initialize custom middleware
+$app->add(new \Mabes\Core\CsrfGuardMiddleware());
+$app->add(new \RKA\SessionMiddleware($app->config["session"]));
+$app->add(new \Mabes\Core\SecurityMiddleware());
+
 // development environment
-if ($app->config["dev"]) {
+if ($config["environment"] == "development") {
     $app->add(new \Zeuxisoo\Whoops\Provider\Slim\WhoopsMiddleware());
     $app->add(new \Slim\Middleware\DebugBar());
 }

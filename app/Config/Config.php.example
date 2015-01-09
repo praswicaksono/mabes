@@ -2,10 +2,12 @@
 
 return [
     "site_name" =>  "Just Another IB Portal",
+    "environment" => "development",
+    "base_url" => "http://mabes.dev/",
     "database"  =>  [
         "driver" => "pdo_mysql",
         "user"  => "root",
-        "password" => "123",
+        "password" => "",
         "dbname" => "mabes"
     ],
     "theme" => "default",
@@ -17,7 +19,7 @@ return [
         "httponly" => true,
         "name" => "mabes"
     ],
-    "dev" => true
+    "secret_key" => "CHANGE-ME-IN-FUTURE",
 ];
 
 // EOF
