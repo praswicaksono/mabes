@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" type="image/vnd.microsoft.icon" href="/favicon.ico" />
+  <title>{% block pagetitle %}Home{% endblock %} - MabesForex Secure Area</title>
+  <link href="/styles/main.css" rel="stylesheet">
+</head>
+<body>
+  {% include 'Components/_header.twig'%}
+  <div class="container">
+  {% block content %}{% endblock %}
+  </div>
+  <div class="container">
+  {% include 'Components/_footer.twig'%}
+  </div>
+  <script src="/scripts/vendor.js" charset="utf-8"></script>
+  {% block inlinejs %}{% endblock %}
+</body>
+</html>
