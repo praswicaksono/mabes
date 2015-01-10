@@ -56,7 +56,31 @@ return [
         "class" => "\\Mabes\\Controllers\\FinanceController",
         "method" => "withdrawal",
         "auth" => false
-    ]
+    ],
+    [
+        "http_method" => "get",
+        "route" => "/finance/bonus",
+        "class" => "\\Mabes\\Controllers\\FinanceController",
+        "method" => "withdrawal",
+        "auth" => false
+    ],
+
+    // ADMIN AREA
+
+    [
+        "http_method" => "get",
+        "route" => "/login",
+        "class" => "\\Mabes\\Controllers\\AdminController",
+        "method" => "login",
+        "auth" => false
+    ],
+    [
+        "http_method" => "get",
+        "route" => "/administrator",
+        "class" => "\\Mabes\\Controllers\\AdminController",
+        "method" => "index",
+        "auth" => false
+    ],
 ];
 
 // EOF

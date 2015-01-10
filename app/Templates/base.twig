@@ -11,14 +11,22 @@
   <link href="/styles/main.css" rel="stylesheet">
 </head>
 <body>
-  {% include 'Components/_header.twig'%}
+	{% if not withoutHeader %}
+  	{% include 'Components/_header.twig'%}
+  {% endif %}
+  {% if adminTemplate %}
+  	{% include 'Components/_headerAdmin.twig'%}
+  {% endif %}
   <div class="container">
   {% block content %}{% endblock %}
   </div>
-  <div class="container">
-  {% include 'Components/_footer.twig'%}
-  </div>
+	{% if not withoutFooter %}
+  	<div class="{% if adminTemplate %}container-fluid{% else %}container{% endif %}">
+  	{% include 'Components/_footer.twig'%}
+  	</div>
+  {% endif %}
   <script src="/scripts/vendor.js" charset="utf-8"></script>
+  <script src="/scripts/main.js" charset="utf-8"></script>
   {% block inlinejs %}{% endblock %}
 </body>
 </html>
