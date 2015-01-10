@@ -1,0 +1,11 @@
+<div class="row body-copy">
+{% if title_content is defined %}
+	<h3>{{ title_content }}</h3>
+{% endif %}
+{% if lead_content is defined %}
+	<p class="lead">{{ lead_content|raw }}</p>
+{% endif %}
+{% if content is defined %}
+	<p>{{ content|raw }}</p>
+{% endif %}
+</div>

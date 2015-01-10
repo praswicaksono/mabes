@@ -1,0 +1,34 @@
+{% extends 'base.twig' %}
+
+{% block pagetitle %}Financial Operation{% endblock %}
+
+{% block content %}
+{# DEBUG: USE REAL CONTENT #}
+{% include 'Components/_paragraph.twig' with {'title_content': 'Finance', 'content': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit eligendi, incidunt, perspiciatis commodi est consectetur vitae fugit illo earum alias molestias consequatur numquam velit dolores laudantium maxime aperiam excepturi saepe? Ex inventore, ullam praesentium placeat quo amet laudantium. Accusantium asperiores officiis enim deleniti non tenetur quisquam ducimus, repudiandae repellat aliquid.'} %}
+<div class="row marketing">
+  <div class="col-sm-3">
+    <a href="/finance/deposit" class="center-block text-center">
+      <img class="img-responsive center-block" src="http://placehold.it/128x128" alt="">
+      <span>Deposit</span>
+    </a>
+  </div>
+  <div class="col-sm-3">
+    <a href="/finance/withdrawal" class="center-block text-center">
+      <img class="img-responsive center-block" src="http://placehold.it/128x128" alt="">
+      <span>Withdrawal</span>
+    </a>
+  </div>
+  <div class="col-sm-3">
+    <a href="/finance/transfer-balance" class="center-block text-center">
+      <img class="img-responsive center-block" src="http://placehold.it/128x128" alt="">
+      <span>Transfer Balance</span>
+    </a>
+  </div>
+  <div class="col-sm-3">
+    <a href="/finance/transaction-status" class="center-block text-center">
+      <img class="img-responsive center-block" src="http://placehold.it/128x128" alt="">
+      <span>Transaction Status</span>
+    </a>
+  </div>
+</div>
+{% endblock %}
