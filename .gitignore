@@ -12,3 +12,4 @@ app/Logs/*.log
 app/Templates/Cache/*
 !app/Templates/Cache/.gitkeep
 app/Config/Config.php
+puphpet/files/dot/ssh/*
