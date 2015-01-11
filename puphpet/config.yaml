@@ -1,8 +1,8 @@
 ---
 vagrantfile-local:
     vm:
-        box: puphpet/ubuntu1204-x64
-        box_url: puphpet/ubuntu1204-x64
+        box: puphpet/ubuntu1404-x32
+        box_url: puphpet/ubuntu1404-x32
         hostname: ''
         memory: '512'
         cpus: '1'
@@ -10,8 +10,8 @@ vagrantfile-local:
         network:
             private_network: 192.168.56.101
             forwarded_port:
-                YFowDc9OZ5nU:
-                    host: '9452'
+                nm6Hm9WR7RrN:
+                    host: '8858'
                     guest: '22'
         post_up_message: ''
         provider:
@@ -32,12 +32,12 @@ vagrantfile-local:
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
                     - '--parser future'
         synced_folder:
-            QhocnkuMbT0B:
+            fiUNqzsbNEYS:
                 owner: www-data
                 group: www-data
                 source: ./
                 target: /var/www
-                sync_type: nfs
+                sync_type: default
                 rsync:
                     args:
                         - '--verbose'
@@ -85,7 +85,36 @@ apache:
         sendfile: 0
     modules:
         - rewrite
-    vhosts: {  }
+        - headers
+    vhosts:
+        hmrupgsm6kmp:
+            servername: mabes.dev
+            serveraliases:
+                - www.mabes.dev
+            docroot: /var/www/public
+            port: '80'
+            setenv:
+                - 'APP_ENV dev'
+            directories:
+                dhgetrganizs:
+                    provider: directory
+                    path: /var/www/public
+                    options:
+                        - Indexes
+                        - FollowSymlinks
+                        - MultiViews
+                    allow_override:
+                        - All
+                    require:
+                        - all
+                        - granted
+                    custom_fragment: ''
+            engine: php
+            custom_fragment: ''
+            ssl_cert: ''
+            ssl_key: ''
+            ssl_chain: ''
+            ssl_certs_dir: ''
     mod_pagespeed: 0
 nginx:
     install: '0'
@@ -95,7 +124,7 @@ nginx:
         proxy_buffers: '4 256k'
     upstreams: {  }
     vhosts:
-        c5wvv05zocvi:
+        ipiaf2a7a4p1:
             proxy: ''
             server_name: awesome.dev
             server_aliases:
@@ -115,7 +144,7 @@ nginx:
             ssl_key: ''
 php:
     install: '1'
-    version: '55'
+    version: '56'
     composer: '1'
     composer_home: ''
     modules:
@@ -123,6 +152,11 @@ php:
             - cli
             - intl
             - mcrypt
+            - curl
+            - common
+            - gd
+            - xmlrpc
+            - mbstring
         pear: {  }
         pecl:
             - pecl_http
@@ -154,7 +188,7 @@ xdebug:
         xdebug.remote_handler: dbgp
         xdebug.remote_port: '9000'
 xhprof:
-    install: '0'
+    install: '1'
 wpcli:
     install: '0'
     version: v0.17.1
@@ -164,7 +198,7 @@ drush:
 ruby:
     install: '1'
     versions:
-        dMDRrwjP9e70:
+        8eSHOSGx0t9e:
             version: ''
 nodejs:
     install: '0'
@@ -173,14 +207,22 @@ python:
     install: '1'
     packages: {  }
     versions:
-        8CFPIRqEMGdH:
+        CTxKkMbzE6dB:
             version: ''
 mysql:
     install: '1'
     override_options: {  }
-    root_password: Blink182
+    root_password: '123'
     adminer: 0
-    databases: {  }
+    databases:
+        94Jy8DdmNrQq:
+            grant:
+                - ALL
+            name: mabes
+            host: localhost
+            user: mabes
+            password: '123'
+            sql_file: ''
 postgresql:
     install: '0'
     settings:
