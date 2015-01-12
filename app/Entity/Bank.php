@@ -33,7 +33,7 @@ class Bank
 
     /**
      * @OneToMany(targetEntity="Deposit", mappedBy="bank_from")
-     * @var Deposit[]
+     * @var \Doctrine\Common\Collections\ArrayCollection
      **/
     protected $deposits = null;
 
