@@ -36,7 +36,6 @@ class AdminController extends BaseController
         }
         $this->app->render('Pages/_login.twig', $data);
     }
-
 }
 
 // EOF

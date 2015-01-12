@@ -196,7 +196,7 @@ class Withdrawal
     }
 
     /**
-     * @param string $created_at
+     * @param \DateTime $created_at
      */
     public function setCreatedAt($created_at)
     {
@@ -204,7 +204,7 @@ class Withdrawal
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -212,7 +212,7 @@ class Withdrawal
     }
 
     /**
-     * @param int $client
+     * @param \Mabes\Entity\Member $client
      */
     public function setClient($client)
     {
@@ -221,7 +221,7 @@ class Withdrawal
     }
 
     /**
-     * @return int
+     * @return \Mabes\Entity\Member
      */
     public function getClient()
     {
