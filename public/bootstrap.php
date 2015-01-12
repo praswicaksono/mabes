@@ -78,5 +78,4 @@ if ($config["environment"] == "development") {
     $app->add(new \Slim\Middleware\DebugBar());
 }
 
-
 // EOF
