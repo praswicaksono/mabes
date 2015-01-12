@@ -322,8 +322,6 @@ class Withdrawal
     {
         return $this->withdrawal_id;
     }
-
-
 }
 
 // EOF
