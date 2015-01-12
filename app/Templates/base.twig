@@ -17,15 +17,17 @@
   {% if adminTemplate %}
   	{% include 'Components/_headerAdmin.twig'%}
   {% endif %}
-  <div class="container">
+  <div class="{% if adminTemplate %}container-fluid{% else %}container{% endif %}"{% if adminTemplate %} style="max-width:1040px"{% endif %}>
   {% block content %}{% endblock %}
   </div>
 	{% if not withoutFooter %}
-  	<div class="{% if adminTemplate %}container-fluid{% else %}container{% endif %}">
+  	<div class="container">
   	{% include 'Components/_footer.twig'%}
   	</div>
   {% endif %}
   <script src="/scripts/vendor.js" charset="utf-8"></script>
+  <script src="/scripts/jquery.dataTables.min.js"></script>
+  <script src="/scripts/datatables-bootstrap3.js"></script>
   <script src="/scripts/main.js" charset="utf-8"></script>
   {% block inlinejs %}{% endblock %}
 </body>

@@ -1,1 +1,1 @@
-$(document).ready(function(){"use strict";$("[data-render-table]").each(function(){var a=$(this);a.DataTable({pagingType:"simple_numbers"})})});
+jQuery(document).ready(function(){"use strict";jQuery("[data-render-table]").each(function(){var a=jQuery(this);a.DataTable({pagingType:"simple_numbers"})})});
