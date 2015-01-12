@@ -305,8 +305,6 @@ class Deposit
     {
         return $this->status;
     }
-
-
 }
 
 // EOF

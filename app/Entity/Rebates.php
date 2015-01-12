@@ -7,11 +7,13 @@
  */
 
 namespace Mabes\Entity;
+
 /**
  * @Entity
  * @Table(name="rebates")
  **/
-class Rebates {
+class Rebates
+{
     /**
      * @Id @Column(type="integer"))
      * @var int
@@ -38,7 +40,7 @@ class Rebates {
     protected $ticket_referral;
 
     /**
-     *@column(type="float")
+     * @column(type="float")
      * @var float
      */
 
@@ -123,7 +125,6 @@ class Rebates {
     {
         $this->ticket_referral = $ticket_referral;
     }
+}
 
-
-
-} 
+// EOF
