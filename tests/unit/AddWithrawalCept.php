@@ -38,6 +38,8 @@ $I->seeInRepository(
     ]
 );
 
-$list_withdrawal = $app->em->getRepository("Mabes\\Entity\\Withdrawal")->getWithdrawal();
+$list_withdrawal = $app->em->getRepository("Mabes\\Entity\\Withdrawal")->query(
+    "SELECT w FROM Mabes\Entity\Withdrawal w"
+);
 
 $I->assertEquals(count($list_withdrawal), 1);

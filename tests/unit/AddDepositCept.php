@@ -43,6 +43,6 @@ $I->seeInRepository(
     ]
 );
 
-$list_deposit = $app->em->getRepository("Mabes\\Entity\\Deposit")->getDeposit();
+$list_deposit = $app->em->getRepository("Mabes\\Entity\\Deposit")->query("SELECT d FROM Mabes\Entity\Deposit d");
 
 $I->assertEquals(count($list_deposit), 1);
