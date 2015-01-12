@@ -7,6 +7,7 @@ use Mabes\Entity\Rebates;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DomCrawler\Crawler;
+
 class ImportRebateCommand extends BaseCommand
 {
     /**
@@ -28,52 +29,54 @@ class ImportRebateCommand extends BaseCommand
     /**
      * @var string
      */
-    protected  $file_name = null;
+    protected $file_name = null;
 
     /**
      * @var string
      */
-    protected  $file_path = null;
+    protected $file_path = null;
 
     /**
      * @var array
      */
-    protected  $data_parser = array();
+    protected $data_parser = array();
 
     protected function configure()
     {
         $this->setName("import:rebate")
             ->setDescription("Import Rebate");
 
-        $this->setDirData(APP_DIR."Data");
-        $this->setBackupDir(APP_DIR."Backup/Statement");
+        $this->setDirData(APP_DIR . "Data");
+        $this->setBackupDir(APP_DIR . "Backup/Statement");
         $this->setExtensions("htm");
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->scanDir();
-        if($this->getFileName() === null){
+        if ($this->getFileName() === null) {
             $output->writeln("no htm file");
             return false;
         }
 
         $this->crawlerFile();
-        if($this->deleteFilePath()){
+        if ($this->deleteFilePath()) {
             $this->insertDBFromArray();
         }
 
-//        $output->writeln($this->getFileName());
+        $output->writeln("File(s) imported successfully");
+
     }
 
-    private function scanDir(){
+    private function scanDir()
+    {
 
         $files = scandir($this->getDirData());
 
         foreach ($files as $filename) {
-            $filePath = $this->getDirData().'/'.$filename;
+            $filePath = $this->getDirData() . '/' . $filename;
 
-            if(is_file($filePath)) {
+            if (is_file($filePath)) {
                 $ext = $this->getFileExtension($filePath);
 
                 if ($ext == $this->getExtensions($filePath)) {
@@ -84,12 +87,14 @@ class ImportRebateCommand extends BaseCommand
         }
     }
 
-    private function getFileExtension($path){
+    private function getFileExtension($path)
+    {
         $path_parts = pathinfo($path);
         return $path_parts['extension'];
     }
 
-    private function crawlerFile(){
+    private function crawlerFile()
+    {
         $html = file_get_contents($this->getFilePath());
         $crawler = new Crawler($html);
 
@@ -99,37 +104,40 @@ class ImportRebateCommand extends BaseCommand
             ->filter('table > tr')
             ->count();
 
-        for($i=1;$i< $count_tr;$i++){
+        for ($i = 1; $i < $count_tr; $i++) {
             $data = $crawler
                 ->filter('table > tr')
                 ->eq($i)
                 ->filter("td")
-                ->each(function (Crawler $node, $i) {
-                    return $node->text();
-                });
-                if(count($data) > 3){
-                    if(preg_match("/agent/", $data[3])){
-
-                        $explode_comment = explode("'",$data[3]);
-
-                        $str_pos = strpos($data[3],"#")+1;
-                        $ticket_referral = substr($data[3],$str_pos);
-                        $data_result[] = array(
-                            "ticket"=>$data[0],
-                            "open_time"=>str_replace(".","-",$data[1]),
-                            "login"=>$explode_comment[1],
-                            "ticket_referral"=>$ticket_referral,
-                            "profit"=>$data[4],
-                        );
+                ->each(
+                    function (Crawler $node, $i) {
+                        return $node->text();
                     }
+                );
+            if (count($data) > 3) {
+                if (preg_match("/agent/", $data[3])) {
+
+                    $explode_comment = explode("'", $data[3]);
+
+                    $str_pos = strpos($data[3], "#") + 1;
+                    $ticket_referral = substr($data[3], $str_pos);
+                    $data_result[] = array(
+                        "ticket" => $data[0],
+                        "open_time" => str_replace(".", "-", $data[1]),
+                        "login" => $explode_comment[1],
+                        "ticket_referral" => $ticket_referral,
+                        "profit" => $data[4],
+                    );
                 }
+            }
         }
 
         $this->setDataParser($data_result);
     }
 
-    private function insertDBFromArray(){
-        foreach($this->getDataParser() as $data){
+    private function insertDBFromArray()
+    {
+        foreach ($this->getDataParser() as $data) {
             $rebates = new Rebates();
             $rebates->setTicket($data['ticket']);
             $rebates->setOpenTime(new \DateTime($data['open_time']));
@@ -142,9 +150,11 @@ class ImportRebateCommand extends BaseCommand
         }
     }
 
-    private function deleteFilePath(){
-        if (rename($this->getFilePath(),$this->getBackupDir()."/".$this->getFileName()))
+    private function deleteFilePath()
+    {
+        if (rename($this->getFilePath(), $this->getBackupDir() . "/" . $this->getFileName())) {
             return true;
+        }
         return false;
     }
 
@@ -243,7 +253,6 @@ class ImportRebateCommand extends BaseCommand
     {
         $this->backup_dir = $backup_dir;
     }
-
 }
 
 // EOF
