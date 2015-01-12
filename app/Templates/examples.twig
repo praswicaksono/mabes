@@ -1,0 +1,54 @@
+{# Error Example #}
+
+{# Must be sent! #}
+{% set isError = true %}
+{% set errorTitle = 'dummy' %}
+{% set errorMessage = 'dummy content' %}
+{% if isError %}
+	{% include 'Components/_message.twig' %}
+{% endif %}
+
+{# Simple Result Example #}
+<div class="row">
+	<div class="col-sm-7 col-sm-offset-2">
+		<div class="panel panel-default">
+			<div class="panel-heading">Rebate</div>
+			<div class="panel-body text-center"><h3>$ 120</h3></div>
+		</div>
+	</div>
+</div>
+
+
+{# Extended Result Example #}
+<div class="row">
+	<div class="col-sm-7 col-sm-offset-2">
+		<div class="panel panel-default">
+			<div class="panel-heading">Transaction Detail</div>
+			<div class="panel-body">
+				<table class="table table-noborder">
+					<tr>
+						<td width="40%"><strong>Tanggal Transaksi</strong></td>
+						<td width="10%">:</td>
+						<td width="50%">12 Januari 2015</td>
+					</tr>
+					<tr>
+						<td width="40%"><strong>Tanggal Transaksi</strong></td>
+						<td width="10%">:</td>
+						<td width="50%">12 Januari 2015</td>
+					</tr>
+					<tr>
+						<td width="40%"><strong>Tanggal Transaksi</strong></td>
+						<td width="10%">:</td>
+						<td width="50%">12 Januari 2015</td>
+					</tr>
+					<tr>
+						<td width="40%"><strong>Tanggal Transaksi</strong></td>
+						<td width="10%">:</td>
+						<td width="50%">12 Januari 2015</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{# End Example #}
