@@ -75,12 +75,19 @@ return [
         "auth" => false
     ],
     [
+        "http_method" => "post",
+        "route" => "/login",
+        "class" => "\\Mabes\\Controllers\\AdminController",
+        "method" => "login",
+        "auth" => false
+    ],
+    [
         "http_method" => "get",
         "route" => "/administrator",
         "class" => "\\Mabes\\Controllers\\AdminController",
         "method" => "index",
         "auth" => false
-    ],
+    ]
 ];
 
 // EOF
