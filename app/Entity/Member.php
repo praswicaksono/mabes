@@ -51,13 +51,13 @@ class Member
 
     /**
      * @OneToMany(targetEntity="Withdrawal", mappedBy="client")
-     * @var Withdrawal[]
+     * @var \Doctrine\Common\Collections\ArrayCollection
      **/
     protected $withdrawals = null;
 
     /**
      * @OneToMany(targetEntity="Deposit", mappedBy="client")
-     * @var Deposit[]
+     * @var \Doctrine\Common\Collections\ArrayCollection
      **/
     protected $deposits = null;
 

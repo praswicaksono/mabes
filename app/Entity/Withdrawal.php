@@ -25,6 +25,7 @@ class Withdrawal
     /**
      * @ManyToOne(targetEntity="Member", inversedBy="withdrawal")
      * @JoinColumn(name="member_id", referencedColumnName="member_id")
+     * @var \Mabes\Entity\Member
      **/
     protected $client;
 
@@ -78,13 +79,13 @@ class Withdrawal
 
     /**
      * @Column(type="datetime")
-     * @var string
+     * @var \DateTime
      */
     protected $created_at;
 
     /**
      * @Column(type="datetime")
-     * @var string
+     * @var \DateTime
      */
     protected $updated_at;
 

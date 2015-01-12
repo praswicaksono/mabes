@@ -73,25 +73,28 @@ class Deposit
 
     /**
      * @Column(type="datetime")
-     * @var string
+     * @var \DateTime
+     *
      */
     protected $created_at;
 
     /**
      * @Column(type="datetime")
-     * @var string
+     * @var \DateTime
      */
     protected $updated_at;
 
     /**
      * @ManyToOne(targetEntity="Member", inversedBy="deposit")
      * @JoinColumn(name="member_id", referencedColumnName="member_id")
+     * @var \Mabes\Entity\Member
      **/
     protected $client;
 
     /**
      * @ManyToOne(targetEntity="Bank", inversedBy="deposit")
      * @JoinColumn(name="bank_id", referencedColumnName="bank_id")
+     * @var \Mabes\Entity\Bank
      **/
     protected $bank;
 
