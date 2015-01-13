@@ -12,6 +12,8 @@ use Respect\Validation\Validator as v;
  **/
 class Withdrawal
 {
+    use MassAssignmentTrait;
+
     const STATUS_OPEN = 1;
 
     const STATUS_PROCESSED = 2;
