@@ -12,6 +12,8 @@ use Respect\Validation\Validator as v;
  **/
 class Withdrawal
 {
+    use MassAssignmentTrait;
+
     const STATUS_OPEN = 1;
 
     const STATUS_PROCESSED = 2;
@@ -95,23 +97,24 @@ class Withdrawal
      */
     public function validate()
     {
-        v::alnum()->assert($this->bank_name);
+        v::alnum()->notEmpty()->assert($this->bank_name);
 
-        v::alnum()->assert($this->account_name);
+        v::alnum()->notEmpty()->assert($this->account_name);
 
-        v::email()->assert($this->email);
+        v::email()->notEmpty()->equals($this->client->getEmail())->assert($this->email);
 
-        v::alnum()->assert($this->phone_password);
+        v::alnum()->notEmpty()->assert($this->phone_password);
 
-        v::numeric("+")->startsWith("+")->assert($this->phone);
+        v::numeric("+")->notEmpty()->startsWith("+")->assert($this->phone);
 
-        v::float()->assert($this->amount);
+        v::float()->notEmpty()->assert($this->amount);
 
-        v::numeric()->assert($this->bank_account);
+        v::numeric()->notEmpty()->assert($this->bank_account);
 
-        v::notEmpty()->assert($this->client);
+        v::notEmpty()->notEmpty()->assert($this->client);
 
-        v::numeric()->assert($this->status);
+
+        v::numeric()->notEmpty()->assert($this->status);
     }
 
     /**
