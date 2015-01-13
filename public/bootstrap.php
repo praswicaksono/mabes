@@ -67,6 +67,14 @@ $app->container->singleton(
     }
 );
 
+// captcha
+$app->container->singleton(
+    "captcha",
+    function () {
+        return new \Gregwar\Captcha\CaptchaBuilder();
+    }
+);
+
 // initialize custom middleware
 $app->add(new \Mabes\Core\CsrfGuardMiddleware());
 $app->add(new \RKA\SessionMiddleware($app->config["session"]));
