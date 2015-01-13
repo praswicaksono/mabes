@@ -53,7 +53,7 @@ class WithdrawalController extends BaseController
             $this->app->view()->appendData(
                 [
                     "isSuccess" => true,
-                    "successTtle" => "Success",
+                    "successTitle" => "Success",
                     "successMessage" => "Withdrawal anda sudah kami terima"
                 ]
             );
