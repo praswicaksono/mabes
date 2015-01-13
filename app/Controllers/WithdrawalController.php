@@ -5,6 +5,7 @@ namespace Mabes\Controllers;
 
 use Mabes\Core\Exception\InvalidCaptchaException;
 use Mabes\Entity\Withdrawal;
+use Respect\Validation\Exceptions\AbstractNestedException;
 use Respect\Validation\Validator as v;
 
 class WithdrawalController extends BaseController
@@ -56,7 +57,7 @@ class WithdrawalController extends BaseController
                     "successMessage" => "Withdrawal anda sudah kami terima"
                 ]
             );
-        } catch (\InvalidArgumentException $e) {
+        } catch (AbstractNestedException $e) {
 
             $errors = $e->findMessages(
                 [
