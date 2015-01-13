@@ -31,13 +31,6 @@ return [
     ],
     [
         "http_method" => "get",
-        "route" => "/finance/withdrawal",
-        "class" => "\\Mabes\\Controllers\\FinanceController",
-        "method" => "withdrawal",
-        "auth" => false
-    ],
-    [
-        "http_method" => "get",
         "route" => "/finance/transfer-balance",
         "class" => "\\Mabes\\Controllers\\FinanceController",
         "method" => "transferBalance",
@@ -53,15 +46,22 @@ return [
     [
         "http_method" => "get",
         "route" => "/finance/withdrawal",
-        "class" => "\\Mabes\\Controllers\\FinanceController",
-        "method" => "withdrawal",
+        "class" => "\\Mabes\\Controllers\\WithdrawalController",
+        "method" => "getWithdrawal",
+        "auth" => false
+    ],
+    [
+        "http_method" => "post",
+        "route" => "/finance/withdrawal",
+        "class" => "\\Mabes\\Controllers\\WithdrawalController",
+        "method" => "postWithdrawal",
         "auth" => false
     ],
     [
         "http_method" => "get",
         "route" => "/finance/bonus",
-        "class" => "\\Mabes\\Controllers\\FinanceController",
-        "method" => "withdrawal",
+        "class" => "\\Mabes\\Controllers\\BonusController",
+        "method" => "postWithdrawal",
         "auth" => false
     ],
 
