@@ -1,70 +1,75 @@
-<form action="#" class="col-sm-9 col-sm-offset-1 form-horizontal page-form">
+{% if isError or isSuccess %}
+    {% include 'Components/_message.twig' %}
+{% endif %}
+<form action="" method="POST" class="col-sm-9 col-sm-offset-1 form-horizontal page-form">
+    <input type="hidden" value="{{ csrf_token }}" name="{{ csrf_key }}">
 	<div class="form-box">
 		<div class="form-group">
 			<label for="withdrawalAmount" class="col-sm-4">Jumlah Withdrawal</label>
 			<div class="col-sm-8">
-				<input type="text" id="withdrawalAmount" name="withdrawalAmount" class="form-control">
+				<input type="text" id="withdrawalAmount" name="amount" class="form-control" value="{{ amount }}">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="loginNumber" class="col-sm-4">Nomor Login MabesForex</label>
 			<div class="col-sm-8">
-				<input type="text" id="loginNumber" name="loginNumber" class="form-control">
+				<input type="text" id="loginNumber" name="login" class="form-control" value="{{ login }}">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="accountName" class="col-sm-4">Nama Akun MabesForex</label>
 			<div class="col-sm-8">
-				<input type="text" id="accountName" name="accountName" class="form-control">
+				<input type="text" id="accountName" name="name" class="form-control" value="{{ name }}">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="phonePassword" class="col-sm-4">Phone Password</label>
 			<div class="col-sm-8">
-				<input type="text" id="phonePassword" name="phonePassword" class="form-control">
+				<input type="text" id="phonePassword" name="phone_password" class="form-control" value="{{ phone_password }}">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="transferTo" class="col-sm-4">Transfer Ke</label>
 			<div class="col-sm-8">
-				<select name="transferTo" id="transferTo" class="form-control">
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
+				<select name="bank_name" id="transferTo" class="form-control">
+					<option value="BCA">BCA</option>
+					<option value="BNI">BNI</option>
+					<option value="Mandiri">Mandiri</option>
+                    <option value="Lainnya">Lainnya</option>
 				</select>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="accNumber" class="col-sm-4">Nomor Rekening</label>
 			<div class="col-sm-8">
-				<input type="text" id="accNumber" name="accNumber" class="form-control">
+				<input type="text" id="accNumber" name="bank_account" class="form-control" value="{{ bank_account }}">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="accHolder" class="col-sm-4">Nama Pemilik Rekening</label>
 			<div class="col-sm-8">
-				<input type="text" id="accHolder" name="accHolder" class="form-control">
+				<input type="text" id="accHolder" name="account_name" class="form-control" value="{{ account_name }}">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="email" class="col-sm-4">E-Mail</label>
 			<div class="col-sm-8">
-				<input type="text" id="email" name="email" class="form-control">
+				<input type="text" id="email" name="email" class="form-control" value="{{ email }}">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="phoneNumber" class="col-sm-4">Nomor Handphone (ex. 081654453432)</label>
 			<div class="col-sm-8">
-				<input type="text" id="phoneNumber" name="phoneNumber" class="form-control">
+				<input type="text" id="phoneNumber" name="phone" class="form-control" value="{{ phone }}">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="captcha" class="col-sm-12 text-center">Ketik ulang teks berikut</label>
 			<div class="col-sm-8 col-sm-offset-2 captcha-img">
-				<img src="http://placehold.it/128x80" class="center-block" alt="">
+				<img src="{{ captcha.inline() }}" class="center-block" alt="">
 			</div>
 			<div class="col-sm-8 col-sm-offset-2">
-				<input type="text" id="captcha" class="form-control">
+				<input type="text" id="captcha" name="captcha" class="form-control">
 			</div>
 		</div>
 		<div class="form-group">
