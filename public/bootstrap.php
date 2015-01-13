@@ -78,4 +78,8 @@ if ($config["environment"] == "development") {
     $app->add(new \Slim\Middleware\DebugBar());
 }
 
+// add global variable on twig
+$twig = $app->view()->getEnvironment();
+$twig->addGlobal('base_url', $config["base_url"]);
+
 // EOF
