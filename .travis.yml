@@ -7,7 +7,7 @@ php:
 script:
   - vendor/bin/doctrine orm:schema-tool:create
   - vendor/bin/codecept build
-  - vendor/bin/codecept run unit
+  - vendor/bin/codecept run
 before_script:
   - mysql -e 'create database mabes;'
   - mv app/Config/Config.php.travis app/Config/Config.php
