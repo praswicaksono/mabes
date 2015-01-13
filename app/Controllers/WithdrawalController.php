@@ -37,14 +37,8 @@ class WithdrawalController extends BaseController
             v::object()->assert($member);
 
             $withdrawal = new Withdrawal();
-            $withdrawal->setAccountName($this->app->request->post("account_name"));
-            $withdrawal->setPhone($this->app->request->post("phone"));
-            $withdrawal->setPhonePassword($this->app->request->post("phone_password"));
-            $withdrawal->setEmail($this->app->request->post("email"));
+            $withdrawal->massAssignment($this->app->request->post());
             $withdrawal->setClient($member);
-            $withdrawal->setAmount($this->app->request->post("amount"));
-            $withdrawal->setBankAccount($this->app->request->post("bank_account"));
-            $withdrawal->setBankName($this->app->request->post("bank_name"));
             $withdrawal->setStatus(Withdrawal::STATUS_OPEN);
 
             $this->app->em->persist($withdrawal);
