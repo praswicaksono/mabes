@@ -13,6 +13,8 @@ use Respect\Validation\Validator as v;
  **/
 class Deposit
 {
+    use MassAssignmentTrait;
+
     const STATUS_OPEN = 1;
 
     const STATUS_PROCESSED = 2;
@@ -118,6 +120,7 @@ class Deposit
         v::email()->assert($this->email);
         v::numeric("+")->startsWith("+")->assert($this->phone);
         v::notEmpty()->assert($this->status);
+        v::notEmpty()->assert($this->upload_file);
     }
 
     /**

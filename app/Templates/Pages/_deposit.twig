@@ -3,9 +3,6 @@
 {% block pagetitle %}Deposit{% endblock %}
 
 {% block content %}
-    {% if isError %}
-        {% include 'Components/_message.twig' %}
-    {% endif %}
 {# DEBUG: USE REAL CONTENT #}
 {% include 'Components/_paragraph.twig' with {'title_content': 'Deposit', 'content': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit eligendi, incidunt, perspiciatis commodi est consectetur vitae fugit illo earum alias molestias consequatur numquam velit dolores laudantium maxime aperiam excepturi saepe? Ex inventore, ullam praesentium placeat quo amet laudantium. Accusantium asperiores officiis enim deleniti non tenetur quisquam ducimus, repudiandae repellat aliquid.'} %}
 {% include 'Components/_forms.twig' with {'form_template': 'deposit'} %}
