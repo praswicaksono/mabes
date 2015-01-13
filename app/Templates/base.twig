@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" type="image/vnd.microsoft.icon" href="/favicon.ico" />
+  <link rel="icon" type="image/vnd.microsoft.icon" href="{{ base_url }}favicon.ico" />
   <title>{% block pagetitle %}Home{% endblock %} - MabesForex Secure Area</title>
-  <link href="styles/main.css" rel="stylesheet">
+  <link href="{{ base_url }}styles/main.css" rel="stylesheet">
 </head>
 <body>
 	{% if not withoutHeader %}
@@ -25,10 +25,10 @@
   	{% include 'Components/_footer.twig'%}
   	</div>
   {% endif %}
-  <script src="/scripts/vendor.js" charset="utf-8"></script>
-  <script src="/scripts/jquery.dataTables.min.js"></script>
-  <script src="/scripts/datatables-bootstrap3.js"></script>
-  <script src="/scripts/main.js" charset="utf-8"></script>
+  <script src="{{ base_url }}scripts/vendor.js" charset="utf-8"></script>
+  <script src="{{ base_url }}scripts/jquery.dataTables.min.js"></script>
+  <script src="{{ base_url }}scripts/datatables-bootstrap3.js"></script>
+  <script src="{{ base_url }}scripts/main.js" charset="utf-8"></script>
   {% block inlinejs %}{% endblock %}
 </body>
 </html>
