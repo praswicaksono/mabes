@@ -66,6 +66,12 @@ class Deposit
     protected $phone;
 
     /**
+     * @Column(type="string", length=64)
+     * @var string
+     */
+
+    protected $upload_file;
+    /**
      * @Column(type="integer")
      * @var integer
      */
@@ -120,7 +126,7 @@ class Deposit
     public function beforeInsert()
     {
         $this->created_at = new \DateTime();
-        $this->updated_at =  new \DateTime();
+        $this->updated_at = new \DateTime();
     }
 
     /**
@@ -308,6 +314,23 @@ class Deposit
     {
         return $this->status;
     }
+
+    /**
+     * @return string
+     */
+    public function getUploadFile()
+    {
+        return $this->upload_file;
+    }
+
+    /**
+     * @param string $upload_file
+     */
+    public function setUploadFile($upload_file)
+    {
+        $this->upload_file = $upload_file;
+    }
+
 }
 
 // EOF

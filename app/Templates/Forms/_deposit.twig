@@ -1,59 +1,61 @@
-<form action="#" class="col-sm-9 col-sm-offset-1 form-horizontal page-form">
+<form action="" method="post" class="col-sm-9 col-sm-offset-1 form-horizontal page-form">
+    <input type="hidden" value="{{ csrf_token }}" name="{{ csrf_key }}">
 	<div class="form-box">
 		<div class="form-group">
 			<label for="depositAmount" class="col-sm-4">Jumlah Deposit</label>
 			<div class="col-sm-8">
-				<input type="text" id="depositAmount" name="depositAmount" class="form-control">
+				<input type="text" id="amount_idr" name="amount_usd" class="form-control">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="transferAmount" class="col-sm-4">Total Transfer</label>
 			<div class="col-sm-8">
-				<input type="text" id="transferAmount" name="transferAmount" class="form-control">
+				<input type="text" id="amount_usd" name="amount_idr" class="form-control">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="loginNumber" class="col-sm-4">Nomor Login MabesForex</label>
 			<div class="col-sm-8">
-				<input type="text" id="loginNumber" name="loginNumber" class="form-control">
+				<input type="text" id="client" name="client" class="form-control">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="accountName" class="col-sm-4">Nama Akun MabesForex</label>
 			<div class="col-sm-8">
-				<input type="text" id="accountName" name="accountName" class="form-control">
+				<input type="text" id="full_name" name="full_name" class="form-control">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="transferTo" class="col-sm-4">Transfer Ke</label>
 			<div class="col-sm-8">
-				<select name="transferTo" id="transferTo" class="form-control">
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
+				<select name="bank_id" id="bank_id" class="form-control">
+                    {% for item in bank %}
+                        <option value="{{ item.getBankId }}">{{ item.getBankName  }} | {{ item.getBankAccount }}</option>
+                    {% endfor %}
 				</select>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="transferFrom" class="col-sm-4">Transfer Dari</label>
 			<div class="col-sm-8">
-				<select name="transferFrom" id="transferFrom" class="form-control">
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
+				<select name="bank_from" id="bank_from" class="form-control">
+                    <option value="BCA">BCA</option>
+                    <option value="MANDIRI">MANDIRI</option>
+                    <option value="BNI">BNI</option>
+                    <option value="Lainnya">Lainnya</option>
 				</select>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="accNumber" class="col-sm-4">Nomor Rekening</label>
 			<div class="col-sm-8">
-				<input type="text" id="accNumber" name="accNumber" class="form-control">
+				<input type="text" id="account_number" name="account_number" class="form-control">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="accHolder" class="col-sm-4">Nama Pemilik Rekening</label>
 			<div class="col-sm-8">
-				<input type="text" id="accHolder" name="accHolder" class="form-control">
+				<input type="text" id="account_name" name="account_name" class="form-control">
 			</div>
 		</div>
 		<div class="form-group">
@@ -65,13 +67,13 @@
 		<div class="form-group">
 			<label for="phoneNumber" class="col-sm-4">Nomor Handphone (ex. 081654453432)</label>
 			<div class="col-sm-8">
-				<input type="text" id="phoneNumber" name="phoneNumber" class="form-control">
+				<input type="text" id="phone" name="phone" class="form-control">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="transferFile" class="col-sm-4">File Bukti Transfer</label>
 			<div class="col-sm-8">
-				<input type="file" id="transferFile" name="transferFile" class="form-control">
+				<input type="file" id="upload_file" name="upload_file" class="form-control">
 			</div>
 		</div>
 		<div class="form-group">

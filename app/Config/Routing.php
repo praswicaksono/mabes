@@ -30,6 +30,13 @@ return [
         "auth" => false
     ],
     [
+        "http_method" => "Post",
+        "route" => "/finance/deposit",
+        "class" => "\\Mabes\\Controllers\\FinanceController",
+        "method" => "deposit",
+        "auth" => false
+    ],
+    [
         "http_method" => "get",
         "route" => "/finance/withdrawal",
         "class" => "\\Mabes\\Controllers\\FinanceController",
