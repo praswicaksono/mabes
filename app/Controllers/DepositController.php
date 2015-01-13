@@ -30,7 +30,7 @@ class DepositController extends BaseController
     }
 
     public function postDeposit()
-    { 
+    {
         try {
 
             if ($this->app->session->phrase != $this->app->request->post("captcha")) {
