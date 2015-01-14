@@ -3,7 +3,7 @@
 
 namespace Mabes\Controllers;
 
-use Mabes\Core\Exception\InvalidCaptchaException;
+use Mabes\Core\Exception\InvalidCustomException;
 use Mabes\Entity\Withdrawal;
 use Respect\Validation\Exceptions\AbstractNestedException;
 use Respect\Validation\Validator as v;
@@ -29,7 +29,7 @@ class WithdrawalController extends BaseController
         try {
 
             if ($this->app->session->phrase != $this->app->request->post("captcha")) {
-                throw new InvalidCaptchaException("Captcha yang anda masukan salah");
+                throw new InvalidCustomException("Captcha yang anda masukan salah");
             }
 
             $member = $this->app->em->find("Mabes\\Entity\\Member", $this->app->request->post("login"));
@@ -67,7 +67,7 @@ class WithdrawalController extends BaseController
             );
 
             $this->validationMessage($errors);
-        } catch (InvalidCaptchaException $e) {
+        } catch (InvalidCustomException $e) {
             $this->validationMessage([
                     "custom" => $e->getMessage()
                 ]);
