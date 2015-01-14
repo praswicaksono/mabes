@@ -33,6 +33,7 @@ $deposit->setBankFrom("BCA");
 $deposit->setStatus(\Mabes\Entity\Deposit::STATUS_OPEN);
 $deposit->setBank($bank);
 $deposit->setClient($member);
+$deposit->setUploadFile('dummy_picture.jpg');
 $app->em->persist($deposit);
 $app->em->flush();
 
