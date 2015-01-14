@@ -58,9 +58,7 @@ abstract class BaseController
         $storage = new \Upload\Storage\FileSystem(PUBLIC_DIR_UPLOAD);
         $file = new \Upload\File($field_name, $storage);
 
-        $new_filename = uniqid();
-
-        $file->setName($new_filename);
+        $file->setName(uniqid());
 
         $file->addValidations(
             array(
@@ -73,21 +71,17 @@ abstract class BaseController
             )
         );
 
-        $data = array(
-            'status' => true,
-            'name' => $file->getNameWithExtension(),
-            'extension' => $file->getExtension(),
-            'mime' => $file->getMimetype(),
-            'size' => $file->getSize(),
-            'md5' => $file->getMd5(),
-            'dimensions' => $file->getDimensions()
-        );
-
         try {
-
-
+            $data = array(
+                'status' => true,
+                'name' => $file->getNameWithExtension(),
+                'extension' => $file->getExtension(),
+                'mime' => $file->getMimetype(),
+                'size' => $file->getSize(),
+                'md5' => $file->getMd5(),
+                'dimensions' => $file->getDimensions()
+            );
             $file->upload();
-
         } catch (\Exception $e) {
             $data = [
                 'status' => false,

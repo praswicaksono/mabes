@@ -8,8 +8,7 @@
 
 namespace Mabes\Controllers;
 
-use Mabes\Core\Exception\InvalidCaptchaException;
-use Mabes\Core\Exception\InvalidUploadException;
+use Mabes\Core\Exception\InvalidCustomException;
 use Mabes\Entity\Deposit;
 use Respect\Validation\Exceptions\AbstractNestedException;
 use Respect\Validation\Validator as v;
@@ -34,7 +33,7 @@ class DepositController extends BaseController
         try {
 
             if ($this->app->session->phrase != $this->app->request->post("captcha")) {
-                throw new InvalidCaptchaException("Captcha yang anda masukan salah");
+                throw new InvalidCustomException("Captcha yang anda masukan salah");
             }
 
             $member = $this->app->em->find("Mabes\\Entity\\Member", $this->app->request->post("login"));
@@ -46,7 +45,7 @@ class DepositController extends BaseController
             $data_upload = $this->uploadFile('file');
 
             if ($data_upload['status'] === false) {
-                throw new InvalidUploadException("file upload " . $data_upload['message'][0]);
+                throw new InvalidCustomException("file upload " . $data_upload['message'][0]);
             }
 
             $deposit = new Deposit();
@@ -78,21 +77,16 @@ class DepositController extends BaseController
                     "equals" => "{{input}} tidak cocok dengan yang ada didatabase",
                     "object" => "no login tidak dapat ditemukan didalam database",
                     "startsWith" => "Nomor telepon harus berawaln dengan +",
-                    'uploaded'  => "file upload gagal"
+                    'uploaded' => "file upload gagal"
                 ]
             );
 
             $this->validationMessage($errors);
-        } catch (InvalidCaptchaException $e) {
-            $this->validationMessage([
-                "custom" => $e->getMessage()
-            ]);
-        } catch (InvalidUploadException $e) {
+        } catch (InvalidCustomException $e) {
             $this->validationMessage([
                 "custom" => $e->getMessage()
             ]);
         }
-
         $this->app->view()->appendData(
             [
                 "captcha" => $this->buildCaptcha(),
