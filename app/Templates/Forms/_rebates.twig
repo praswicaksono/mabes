@@ -1,4 +1,8 @@
+{% if isError or isSuccess %}
+	{% include 'Components/_message.twig' %}
+{% endif %}
 <form action="#" class="col-sm-7 col-sm-offset-2 form-horizontal page-form">
+	<input type="hidden" value="{{ csrf_token }}" name="{{ csrf_key }}">
 	<div class="form-box">
 		<div class="form-group">
 			<label for="loginNumber" class="col-sm-4">Nomor Login MabesForex</label>

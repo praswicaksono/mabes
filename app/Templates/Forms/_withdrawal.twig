@@ -1,8 +1,8 @@
 {% if isError or isSuccess %}
-    {% include 'Components/_message.twig' %}
+	{% include 'Components/_message.twig' %}
 {% endif %}
 <form action="" method="POST" class="col-sm-9 col-sm-offset-1 form-horizontal page-form">
-    <input type="hidden" value="{{ csrf_token }}" name="{{ csrf_key }}">
+	<input type="hidden" value="{{ csrf_token }}" name="{{ csrf_key }}">
 	<div class="form-box">
 		<div class="form-group">
 			<label for="withdrawalAmount" class="col-sm-4">Jumlah Withdrawal</label>
@@ -35,7 +35,7 @@
 					<option value="BCA">BCA</option>
 					<option value="BNI">BNI</option>
 					<option value="Mandiri">Mandiri</option>
-                    <option value="Lainnya">Lainnya</option>
+					<option value="Lainnya">Lainnya</option>
 				</select>
 			</div>
 		</div>

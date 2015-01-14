@@ -7,7 +7,7 @@
 
 {% block content %}
 {% if isError %}
-    {% include 'Components/_message.twig' %}
+	{% include 'Components/_message.twig' %}
 {% endif %}
 <div class="col-md-7 col-md-offset-2">
 	<div class="panel panel-default" style="margin-top: 10%">
@@ -16,7 +16,7 @@
 		</div>
 		<div class="panel-body">
 			<form accept-charset="UTF-8" role="form" method="post">
-                <input type="hidden" value="{{ csrf_token }}" name="{{ csrf_key }}">
+				<input type="hidden" value="{{ csrf_token }}" name="{{ csrf_key }}">
 				<fieldset>
 					<div class="form-group">
 						<input class="form-control" placeholder="Username" name="username" type="text">
