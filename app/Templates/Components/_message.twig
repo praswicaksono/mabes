@@ -1,19 +1,19 @@
 <div class="row">
 	<div class="col-sm-7 col-sm-offset-2">
-            {% if isError %}
-            <div class="alert alert-danger alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <strong>{{ errorTitle }}</strong>
-                <br>
-                {{ errorMessage }}
-            </div>
-            {% elseif isSuccess %}
-                <div class="alert alert-success alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <strong>{{ successTitle }}</strong>
-                    <br>
-                    {{ successMessage }}
-                </div>
-            {% endif %}
+		{% if isError %}
+		<div class="alert alert-danger alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			<strong>{{ errorTitle }}</strong>
+			<br>
+			{{ errorMessage }}
+		</div>
+		{% elseif isSuccess %}
+		<div class="alert alert-success alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			<strong>{{ successTitle }}</strong>
+			<br>
+			{{ successMessage }}
+		</div>
+	{% endif %}
 	</div>
 </div>
