@@ -6,7 +6,7 @@ namespace Mabes\Core\Exception;
 
 use SebastianBergmann\Exporter\Exception;
 
-class InvalidCustomaException extends Exception
+class InvalidCustomException extends Exception
 {
 
 }
