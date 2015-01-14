@@ -8,6 +8,8 @@ define("PUBLIC_DIR", __DIR__);
 
 $config = require __DIR__ . "/../app/Config/Config.php";
 
+define("PUBLIC_DIR_UPLOAD", __DIR__ . "/" . $config['path_upload']);
+
 $app = new \Slim\Slim([
     "mode" => $config["environment"],
     "templates.path" => __DIR__ . "/../app/Templates",

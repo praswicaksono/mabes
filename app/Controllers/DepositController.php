@@ -77,7 +77,8 @@ class DepositController extends BaseController
                     "notEmpty" => "Mohon diisi semua field",
                     "equals" => "{{input}} tidak cocok dengan yang ada didatabase",
                     "object" => "no login tidak dapat ditemukan didalam database",
-                    "startsWith" => "Nomor telepon harus berawaln dengan +"
+                    "startsWith" => "Nomor telepon harus berawaln dengan +",
+                    'uploaded'  => "file upload gagal"
                 ]
             );
 
