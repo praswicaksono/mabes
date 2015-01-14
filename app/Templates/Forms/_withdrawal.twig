@@ -1,7 +1,7 @@
-{% if isError or isSuccess %}
-	{% include 'Components/_message.twig' %}
-{% endif %}
 <form action="" method="POST" class="col-sm-9 col-sm-offset-1 form-horizontal page-form">
+	{% if isError or isSuccess %}
+		{% include 'Components/_message.twig' %}
+	{% endif %}
 	<input type="hidden" value="{{ csrf_token }}" name="{{ csrf_key }}">
 	<div class="form-box">
 		<div class="form-group">
