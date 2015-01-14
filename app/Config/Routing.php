@@ -12,7 +12,14 @@ return [
         "http_method" => "get",
         "route" => "/rebates",
         "class" => "\\Mabes\\Controllers\\RebatesController",
-        "method" => "index",
+        "method" => "getRebates",
+        "auth" => false
+    ],
+    [
+        "http_method" => "post",
+        "route" => "/rebates",
+        "class" => "\\Mabes\\Controllers\\RebatesController",
+        "method" => "postRebates",
         "auth" => false
     ],
     [
