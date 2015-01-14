@@ -13,7 +13,8 @@
         "yusukezzz/slim-debugbar": "~1.0",
         "akrabat/rka-slim-session-middleware": "~1.0",
         "symfony/console": "~2.6",
-        "gregwar/captcha": "~1.0"
+        "gregwar/captcha": "~1.0",
+        "codeguy/upload": "*"
     },
     "license": "MIT",
     "authors": [

@@ -13,6 +13,8 @@ use Respect\Validation\Validator as v;
  **/
 class Deposit
 {
+    use MassAssignmentTrait;
+
     const STATUS_OPEN = 1;
 
     const STATUS_PROCESSED = 2;
@@ -66,6 +68,12 @@ class Deposit
     protected $phone;
 
     /**
+     * @Column(type="string", length=64, nullable=true)
+     * @var string
+     */
+
+    protected $upload_file;
+    /**
      * @Column(type="integer")
      * @var integer
      */
@@ -112,6 +120,7 @@ class Deposit
         v::email()->assert($this->email);
         v::numeric("+")->startsWith("+")->assert($this->phone);
         v::notEmpty()->assert($this->status);
+        v::notEmpty()->assert($this->upload_file);
     }
 
     /**
@@ -120,7 +129,7 @@ class Deposit
     public function beforeInsert()
     {
         $this->created_at = new \DateTime();
-        $this->updated_at =  new \DateTime();
+        $this->updated_at = new \DateTime();
     }
 
     /**
@@ -307,6 +316,22 @@ class Deposit
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUploadFile()
+    {
+        return $this->upload_file;
+    }
+
+    /**
+     * @param string $upload_file
+     */
+    public function setUploadFile($upload_file)
+    {
+        $this->upload_file = $upload_file;
     }
 }
 

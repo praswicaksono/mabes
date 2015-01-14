@@ -43,13 +43,54 @@ abstract class BaseController
         foreach ($errors as $key => $value) {
             if (!empty($value)) {
                 $this->app->view()->appendData([
-                        "isError" => true,
-                        "errorTitle" => "Error",
-                        "errorMessage" => $value
-                    ]);
+                    "isError" => true,
+                    "errorTitle" => "Error",
+                    "errorMessage" => $value
+                ]);
             }
             $this->populateForm($this->app->request->post());
         }
+    }
+
+    protected function uploadFile($field_name)
+    {
+
+        $storage = new \Upload\Storage\FileSystem(PUBLIC_DIR_UPLOAD);
+        $file = new \Upload\File($field_name, $storage);
+
+        $file->setName(uniqid());
+
+        $file->addValidations(
+            array(
+                new \Upload\Validation\Mimetype([
+                    'image/png',
+                    'image/jpeg'
+                ]),
+
+                new \Upload\Validation\Size('2M')
+            )
+        );
+
+        try {
+            $data = array(
+                'status' => true,
+                'name' => $file->getNameWithExtension(),
+                'extension' => $file->getExtension(),
+                'mime' => $file->getMimetype(),
+                'size' => $file->getSize(),
+                'md5' => $file->getMd5(),
+                'dimensions' => $file->getDimensions()
+            );
+            $file->upload();
+        } catch (\Exception $e) {
+            $data = [
+                'status' => false,
+                'message' => $file->getErrors(),
+                'name' => "",
+            ];
+        }
+
+        return $data;
     }
 }
 

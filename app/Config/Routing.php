@@ -24,13 +24,6 @@ return [
     ],
     [
         "http_method" => "get",
-        "route" => "/finance/deposit",
-        "class" => "\\Mabes\\Controllers\\FinanceController",
-        "method" => "deposit",
-        "auth" => false
-    ],
-    [
-        "http_method" => "get",
         "route" => "/finance/transfer-balance",
         "class" => "\\Mabes\\Controllers\\FinanceController",
         "method" => "transferBalance",
@@ -41,6 +34,20 @@ return [
         "route" => "/finance/transaction-status",
         "class" => "\\Mabes\\Controllers\\FinanceController",
         "method" => "transactionStatus",
+        "auth" => false
+    ],
+    [
+        "http_method" => "get",
+        "route" => "/finance/deposit",
+        "class" => "\\Mabes\\Controllers\\DepositController",
+        "method" => "getDeposit",
+        "auth" => false
+    ],
+    [
+        "http_method" => "Post",
+        "route" => "/finance/deposit",
+        "class" => "\\Mabes\\Controllers\\DepositController",
+        "method" => "postDeposit",
         "auth" => false
     ],
     [
