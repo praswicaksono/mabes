@@ -9,16 +9,15 @@
 namespace Mabes\Controllers;
 
 use Mabes\Core\Exception\InvalidCaptchaException;
+use Mabes\Core\Exception\InvalidUploadException;
 use Mabes\Entity\Deposit;
 use Respect\Validation\Exceptions\AbstractNestedException;
-use Respect\Validation\Rules\Uploaded;
 use Respect\Validation\Validator as v;
 
 class DepositController extends BaseController
 {
     public function getDeposit()
     {
-
         $this->app->view()->appendData(
             [
                 "captcha" => $this->buildCaptcha(),
@@ -31,6 +30,7 @@ class DepositController extends BaseController
 
     public function postDeposit()
     {
+
         try {
 
             if ($this->app->session->phrase != $this->app->request->post("captcha")) {
@@ -40,13 +40,18 @@ class DepositController extends BaseController
             $member = $this->app->em->find("Mabes\\Entity\\Member", $this->app->request->post("login"));
             $bank = $this->app->em->find("Mabes\\Entity\\Bank", $this->app->request->post('bank_to'));
 
-
-//            v::uploaded()->validate()
             v::object()->assert($member);
             v::object()->assert($bank);
 
+            $data_upload = $this->uploadFile('file');
+
+            if ($data_upload['status'] === false) {
+                throw new InvalidUploadException("file upload " . $data_upload['message'][0]);
+            }
+
             $deposit = new Deposit();
             $deposit->massAssignment($this->app->request->post());
+            $deposit->setUploadFile($data_upload['name']);
             $deposit->setClient($member);
             $deposit->setBank($bank);
             $deposit->setStatus(Deposit::STATUS_OPEN);
@@ -81,6 +86,10 @@ class DepositController extends BaseController
             $this->validationMessage([
                 "custom" => $e->getMessage()
             ]);
+        } catch (InvalidUploadException $e) {
+            $this->validationMessage([
+                "custom" => $e->getMessage()
+            ]);
         }
 
         $this->app->view()->appendData(
@@ -92,6 +101,4 @@ class DepositController extends BaseController
 
         $this->app->render('Pages/_deposit.twig');
     }
-
-
-} 
+}

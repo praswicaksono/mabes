@@ -51,6 +51,50 @@ abstract class BaseController
             $this->populateForm($this->app->request->post());
         }
     }
+
+    protected function uploadFile($field_name){
+
+        $storage = new \Upload\Storage\FileSystem(PUBLIC_DIR . "/" . $this->app->config['path_upload']);
+        $file = new \Upload\File($field_name, $storage);
+
+        $new_filename = uniqid();
+
+        $file->setName($new_filename);
+
+        $file->addValidations(
+            array(
+                new \Upload\Validation\Mimetype([
+                    'image/png',
+                    'image/jpeg'
+                ]),
+
+                new \Upload\Validation\Size('2M')
+            )
+        );
+
+        try {
+
+            $data = array(
+                'status' => true,
+                'name' => $file->getNameWithExtension(),
+                'extension' => $file->getExtension(),
+                'mime' => $file->getMimetype(),
+                'size' => $file->getSize(),
+                'md5' => $file->getMd5(),
+                'dimensions' => $file->getDimensions()
+            );
+
+            $file->upload();
+
+        } catch (\Exception $e) {
+            $data = [
+                'status' => false,
+                'message' => $file->getErrors()
+            ];
+        }
+
+        return $data;
+    }
 }
 
 // EOF

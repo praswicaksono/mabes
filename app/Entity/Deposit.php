@@ -68,7 +68,7 @@ class Deposit
     protected $phone;
 
     /**
-     * @Column(type="string", length=64)
+     * @Column(type="string", length=64, nullable=true)
      * @var string
      */
 
@@ -333,7 +333,6 @@ class Deposit
     {
         $this->upload_file = $upload_file;
     }
-
 }
 
 // EOF
