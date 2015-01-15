@@ -9,6 +9,7 @@
 namespace Mabes\Entity;
 
 use Respect\Validation\Validator as v;
+
 /**
  * @Entity(repositoryClass="TransferRepository")
  * @Table(name="transfer", indexes={@Index(name="search_idx", columns={"updated_at", "created_at"})})
@@ -233,4 +234,4 @@ class Transfer
     {
         $this->phone = $phone;
     }
-} 
+}
