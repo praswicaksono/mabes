@@ -61,10 +61,24 @@ class Member
      **/
     protected $deposits = null;
 
+    /**
+     * @OneToMany(targetEntity="Transfer", mappedBy="client_from")
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     **/
+    protected $transfers_from = null;
+
+    /**
+     * @OneToMany(targetEntity="Transfer", mappedBy="client_to")
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     **/
+    protected $transfers_to = null;
+
     public function __construct()
     {
         $this->withdrawals = new ArrayCollection();
         $this->deposits = new ArrayCollection();
+        $this->transfers_from = new ArrayCollection();
+        $this->transfers_to = new ArrayCollection();
     }
 
     public function addWithdrawal($withdrawal)
@@ -86,6 +100,27 @@ class Member
     {
         return $this->deposits;
     }
+
+    public function addTransfersFrom($transfer_from)
+    {
+        $this->transfers_from[] = $transfer_from;
+    }
+
+    public function getTransfersFrom()
+    {
+        return $this->transfers_from;
+    }
+
+    public function addTransfersTo($transfer_to)
+    {
+        $this->transfers_to[] = $transfer_to;
+    }
+
+    public function getTransfersTo()
+    {
+        return $this->transfers_to;
+    }
+
 
     /**
      * @PrePersist @PreUpdate
