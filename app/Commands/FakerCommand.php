@@ -17,7 +17,7 @@ class FakerCommand extends BaseCommand
 
         $this->members_data = [
             [
-                "member_id" => 1,
+                "member_id" => 12345,
                 "full_name" => "Prastyo Wicaksono",
                 "country" => "Indonesia",
                 "phone" => "+621234567",
@@ -25,7 +25,7 @@ class FakerCommand extends BaseCommand
                 "register_date" => new \DateTime()
             ]
             , [
-                "member_id" => 2,
+                "member_id" => 12346,
                 "full_name" => "Awalin Yudhana",
                 "country" => "Indonesia",
                 "phone" => "+62987654",

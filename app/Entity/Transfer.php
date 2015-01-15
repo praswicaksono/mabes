@@ -8,6 +8,7 @@
 
 namespace Mabes\Entity;
 
+use Respect\Validation\Validator as v;
 /**
  * @Entity(repositoryClass="TransferRepository")
  * @Table(name="transfer", indexes={@Index(name="search_idx", columns={"updated_at", "created_at"})})
@@ -17,11 +18,11 @@ class Transfer
 {
     use MassAssignmentTrait;
 
-    const STATUS_OPEN = 0;
+    const STATUS_OPEN = 1;
 
-    const STATUS_PROCESSED = 1;
+    const STATUS_PROCESSED = 2;
 
-    const STATUS_SUSPEND = 2;
+    const STATUS_SUSPEND = 3;
 
     /**
      * @Id @Column(type="string", length=128) @GeneratedValue(strategy="UUID")
@@ -148,7 +149,7 @@ class Transfer
      */
     public function setToLogin($to_login)
     {
-        $to_login->addTransfersto($this);
+        $to_login->addTransferTo($this);
         $this->to_login = $to_login;
     }
 
@@ -197,7 +198,7 @@ class Transfer
      */
     public function setFromLogin($from_login)
     {
-        $from_login->addTransfersFrom($this);
+        $from_login->addTransferFrom($this);
         $this->from_login = $from_login;
     }
 
