@@ -15,7 +15,6 @@ namespace Mabes\Entity;
  **/
 class Transfer
 {
-
     use MassAssignmentTrait;
 
     const STATUS_OPEN = 0;
@@ -233,5 +232,4 @@ class Transfer
     {
         $this->phone = $phone;
     }
-
 } 
