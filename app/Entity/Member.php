@@ -13,6 +13,7 @@ use Respect\Validation\Validator as v;
  **/
 class Member
 {
+    use MassAssignmentTrait;
     /**
      * @Id @Column(type="integer")
      * @var int
