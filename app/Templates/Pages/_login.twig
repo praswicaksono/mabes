@@ -7,7 +7,7 @@
 
 {% block content %}
 {% if isError %}
-	{% include 'Components/_message.twig' %}
+    {% include 'Components/_message.twig' %}
 {% endif %}
 <div class="col-md-7 col-md-offset-2">
 	<div class="panel panel-default" style="margin-top: 10%">
@@ -15,7 +15,7 @@
 			<h3 class="panel-title">MabesForex Administrator</h3>
 		</div>
 		<div class="panel-body">
-			<form accept-charset="UTF-8" role="form" method="post">
+			<form accept-charset="UTF-8" role="form" method="post" action="">
 				<input type="hidden" value="{{ csrf_token }}" name="{{ csrf_key }}">
 				<fieldset>
 					<div class="form-group">
