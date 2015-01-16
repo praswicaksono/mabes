@@ -73,9 +73,16 @@ return [
     ],
     [
         "http_method" => "get",
-        "route" => "/finance/bonus",
-        "class" => "\\Mabes\\Controllers\\BonusController",
-        "method" => "postWithdrawal",
+        "route" => "/finance/transfer",
+        "class" => "\\Mabes\\Controllers\\TransferController",
+        "method" => "getTransfer",
+        "auth" => false
+    ],
+    [
+        "http_method" => "post",
+        "route" => "/finance/transfer",
+        "class" => "\\Mabes\\Controllers\\TransferController",
+        "method" => "postTransfer",
         "auth" => false
     ],
 
