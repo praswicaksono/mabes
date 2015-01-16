@@ -15,7 +15,7 @@
 			{% if isError %}
 				{% include 'Components/_message.twig' %}
 			{% endif %}
-			<form accept-charset="UTF-8" role="form" method="post">
+			<form accept-charset="UTF-8" role="form" method="post" action="">
 				<input type="hidden" value="{{ csrf_token }}" name="{{ csrf_key }}">
 				<fieldset>
 					<div class="form-group">

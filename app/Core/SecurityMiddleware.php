@@ -24,7 +24,7 @@ class SecurityMiddleware extends Middleware
         foreach ($routes as $route) {
             if ($uri[0] == $route["route"] && $route["auth"] == true) {
                 if (!$this->checkToken()) {
-                    $this->app->redirect("{$this->app->config["base_url"]}login");
+                    $this->app->response->redirect("{$this->app->config["base_url"]}/auth/login");
                 }
             }
         }
@@ -32,7 +32,7 @@ class SecurityMiddleware extends Middleware
 
     private function checkToken()
     {
-        if (!isset($this->app->session->_token)) {
+        if (!isset($this->app->session->token)) {
             return false;
         }
 

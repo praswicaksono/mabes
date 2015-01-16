@@ -13,6 +13,7 @@ use Respect\Validation\Validator as v;
  **/
 class Member
 {
+    use MassAssignmentTrait;
     /**
      * @Id @Column(type="integer")
      * @var int
@@ -61,10 +62,24 @@ class Member
      **/
     protected $deposits = null;
 
+    /**
+     * @OneToMany(targetEntity="Transfer", mappedBy="client_from")
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     **/
+    protected $transfer_from = null;
+
+    /**
+     * @OneToMany(targetEntity="Transfer", mappedBy="client_to")
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     **/
+    protected $transfer_to = null;
+
     public function __construct()
     {
         $this->withdrawals = new ArrayCollection();
         $this->deposits = new ArrayCollection();
+        $this->transfer_from = new ArrayCollection();
+        $this->transfer_to = new ArrayCollection();
     }
 
     public function addWithdrawal($withdrawal)
@@ -86,6 +101,27 @@ class Member
     {
         return $this->deposits;
     }
+
+    public function addTransferFrom($transfer_from)
+    {
+        $this->transfer_from[] = $transfer_from;
+    }
+
+    public function getTransferFrom()
+    {
+        return $this->transfer_from;
+    }
+
+    public function addTransferTo($transfer_to)
+    {
+        $this->transfer_to[] = $transfer_to;
+    }
+
+    public function getTransferTo()
+    {
+        return $this->transfer_to;
+    }
+
 
     /**
      * @PrePersist @PreUpdate
