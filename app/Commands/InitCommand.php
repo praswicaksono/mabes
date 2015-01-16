@@ -13,10 +13,8 @@ use Mabes\Config\DummyData;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class initCommand extends BaseCommand
+class InitCommand extends BaseCommand
 {
-    private $dummy;
-
     protected $member;
 
     protected $staff;
@@ -33,13 +31,13 @@ class initCommand extends BaseCommand
     {
         parent::__construct();
 
-        $this->dummy = new DummyData();
-        $this->member = $this->dummy->getMember();
-        $this->staff = $this->dummy->getStaff();
-        $this->bank = $this->dummy->getBank();
-        $this->deposit = $this->dummy->getDeposit();
-        $this->withdrawal = $this->dummy->getWithdrawal();
-        $this->transfer = $this->dummy->getTransfer();
+        $dummy = new DummyData();
+        $this->member = $dummy->getMember();
+        $this->staff = $dummy->getStaff();
+        $this->bank = $dummy->getBank();
+        $this->deposit = $dummy->getDeposit();
+        $this->withdrawal =$dummy->getWithdrawal();
+        $this->transfer = $dummy->getTransfer();
     }
 
     protected function configure()
@@ -58,10 +56,15 @@ class initCommand extends BaseCommand
         $this->insertDummyTransfer();
     }
 
+    private function getIdStatus($class, $id){
+
+        return $this->slim_app->em->find($class, $id);
+    }
+
     public function insertDummyStaff()
     {
         foreach ($this->staff as $data) {
-            $isset = $this->slim_app->em->find("Mabes\\Entity\\Staff", $data['staff_id']);
+            $isset = $this->getIdStatus("Mabes\\Entity\\Staff",$data['staff_id']);
             if ($isset === null) {
                 $staff = new Staff();
                 $staff->setUsername($data['staff_id']);
@@ -76,7 +79,7 @@ class initCommand extends BaseCommand
     public function insertDummyMember()
     {
         foreach ($this->member as $data) {
-            $isset = $this->slim_app->em->find("Mabes\\Entity\\Member", $data['member_id']);
+            $isset = $this->getIdStatus("Mabes\\Entity\\Member",$data['member_id']);
             if ($isset === null) {
                 $member = new Member();
                 $member->massAssignment($data);
@@ -102,7 +105,7 @@ class initCommand extends BaseCommand
     public function insertDummyDeposit()
     {
         foreach ($this->deposit as $data) {
-            $isset = $this->slim_app->em->find("Mabes\\Entity\\Deposit", $data['deposit_id']);
+            $isset = $this->getIdStatus("Mabes\\Entity\\Deposit",$data['deposit_id']);
             if ($isset === null) {
 
                 $member = $this->slim_app->em->find("Mabes\\Entity\\Member", $this->member[0]['member_id']);
@@ -123,7 +126,7 @@ class initCommand extends BaseCommand
     public function insertDummyWithdrawal()
     {
         foreach ($this->withdrawal as $data) {
-            $isset = $this->slim_app->em->find("Mabes\\Entity\\Withdrawal", $data['withdrawal_id']);
+            $isset = $this->getIdStatus("Mabes\\Entity\\Withdrawal",$data['withdrawal_id']);
             if ($isset === null) {
 
                 $member = $this->slim_app->em->find("Mabes\\Entity\\Member", $this->member[0]['member_id']);
@@ -138,9 +141,10 @@ class initCommand extends BaseCommand
         }
     }
 
-    public function insertDummyTransfer(){
+    public function insertDummyTransfer()
+    {
         foreach ($this->transfer as $data) {
-            $isset = $this->slim_app->em->find("Mabes\\Entity\\Transfer", $data['transfer_id']);
+            $isset = $this->getIdStatus("Mabes\\Entity\\Transfer",$data['transfer_id']); 
             if ($isset === null) {
 
                 $member_from = $this->slim_app->em->find("Mabes\\Entity\\Member", $this->member[0]['member_id']);
