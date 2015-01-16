@@ -83,16 +83,23 @@ return [
 
     [
         "http_method" => "get",
-        "route" => "/login",
-        "class" => "\\Mabes\\Controllers\\AdminController",
-        "method" => "login",
+        "route" => "/auth/login",
+        "class" => "\\Mabes\\Controllers\\AuthController",
+        "method" => "getLogin",
         "auth" => false
     ],
     [
+        "http_method" => "get",
+        "route" => "/auth/logout",
+        "class" => "\\Mabes\\Controllers\\AuthController",
+        "method" => "getLogout",
+        "auth" => true
+    ],
+    [
         "http_method" => "post",
-        "route" => "/login",
-        "class" => "\\Mabes\\Controllers\\AdminController",
-        "method" => "login",
+        "route" => "/auth/login",
+        "class" => "\\Mabes\\Controllers\\AuthController",
+        "method" => "postLogin",
         "auth" => false
     ],
     [
@@ -100,7 +107,21 @@ return [
         "route" => "/administrator",
         "class" => "\\Mabes\\Controllers\\AdminController",
         "method" => "index",
-        "auth" => false
+        "auth" => true
+    ],
+    [
+        "http_method" => "get",
+        "route" => "/administrator/withdrawal",
+        "class" => "\\Mabes\\Controllers\\AdminWithdrawalController",
+        "method" => "getAdminWithdrawal",
+        "auth" => true
+    ],
+    [
+        "http_method" => "get",
+        "route" => "/administrator/deposit",
+        "class" => "\\Mabes\\Controllers\\AdminDepositController",
+        "method" => "getAdminDeposit",
+        "auth" => true
     ]
 ];
 
