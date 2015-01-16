@@ -29,7 +29,10 @@ $app->em->flush();
 $transfer = new \Mabes\Entity\Transfer();
 $transfer->setAmount(1);
 $transfer->setFromLogin($member_from);
+$transfer->setFromName($member_from->getFullName());
+$transfer->setEmail($member_from->getEmail());
 $transfer->setToLogin($member_to);
+$transfer->setToName($member_to->getFullName());
 $transfer->setPhone("+6234567");
 $transfer->setStatus($transfer::STATUS_OPEN);
 
