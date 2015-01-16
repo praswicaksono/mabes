@@ -93,7 +93,7 @@ class InitCommand extends BaseCommand
     public function insertDummyBank()
     {
         foreach ($this->bank as $data) {
-            $isset = $this->slim_app->em->find("Mabes\\Entity\\Bank", $data['bank_id']);
+            $isset = $this->getIdStatus("Mabes\\Entity\\Bank", $data['bank_id']); 
             if ($isset === null) {
                 $bank = new Bank();
                 $bank->massAssignment($data);
