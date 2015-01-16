@@ -26,8 +26,8 @@ class Transfer
     const STATUS_SUSPEND = 3;
 
     /**
-     * @Id @Column(type="string", length=128) @GeneratedValue(strategy="UUID")
-     * @var string
+     * @Id @Column(type="integer") @GeneratedValue(strategy="AUTO")
+     * @var int
      */
     protected $transfer_id;
 
@@ -123,7 +123,7 @@ class Transfer
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getTransferId()
     {
@@ -131,7 +131,7 @@ class Transfer
     }
 
     /**
-     * @param string $transfer_id
+     * @param int $transfer_id
      */
     public function setTransferId($transfer_id)
     {
