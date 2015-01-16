@@ -39,13 +39,13 @@ class Transfer
     protected $from_login;
 
     /**
-     * @Column(type="string", length=64, columnDefinition="'client_from'")
+     * @Column(type="string", length=64)
      * @var string
      */
     protected $from_name;
 
     /**
-     * @Column(type="string", length=64, columnDefinition="'from_name'")
+     * @Column(type="string", length=64)
      * @var string
      */
     protected $email;
@@ -299,6 +299,4 @@ class Transfer
     {
         $this->updated_at = $updated_at;
     }
-
-
 }

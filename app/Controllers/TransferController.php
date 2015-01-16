@@ -46,8 +46,8 @@ class TransferController extends BaseController
 
             $transfer = new Transfer();
             $transfer->massAssignment($this->app->request->post());
-            $transfer->getFromLogin($member_from);
-            $transfer->getToLogin($member_to);
+            $transfer->setFromLogin($member_from);
+            $transfer->setToLogin($member_to);
 
             $this->app->em->persist($transfer);
             $this->app->em->flush();
