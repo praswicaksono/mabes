@@ -4,6 +4,7 @@
 namespace Mabes\Commands;
 
 use Mabes\Entity\Member;
+use Mabes\Entity\Staff;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -26,6 +27,14 @@ class FakerCommand extends BaseCommand
         $member->setRegisterDate(new \DateTime());
 
         $this->slim_app->em->persist($member);
+
+        $this->slim_app->em->flush();
+
+        $staff = new Staff();
+        $staff->setUsername("jowy");
+        $staff->setPassword("Blink182");
+
+        $this->slim_app->em->persist($staff);
 
         $this->slim_app->em->flush();
     }
