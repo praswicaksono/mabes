@@ -1,0 +1,63 @@
+{% extends 'base.twig' %}
+
+{% block pagetitle %}Administrator{% endblock %}
+
+{% set adminTemplate = true %}
+{% set withoutHeader = true %}
+{% set withoutFooter = true %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Withdrawal - {{ withdrawal|length }} Request(s)</div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered" data-render-table>
+                            <thead>
+                            <tr>
+                                <td valign="middle" class="text-center">ID</td>
+                                <td valign="middle" class="text-center">Amount</td>
+                                <td valign="middle" class="text-center">Account</td>
+                                <td valign="middle" class="text-center">Transfer To</td>
+                                <td valign="middle" class="text-center">Contact</td>
+                                <td valign="middle" class="text-center" width="150px">Action</td>
+                            </tr>
+                            </thead>
+                            {% for item in withdrawal %}
+                                <tr>
+                                    <td valign="middle" class="text-center">
+                                        <span class="ticketID"><strong>{{ item.getWithdrawalId() }}</strong></span>
+                                    </td>
+                                    <td valign="middle" class="text-center">
+                                        <span class="amount">USD {{ item.getAmount() }}</span>
+                                    </td>
+                                    <td valign="middle" class="text-center">
+                                        <span class="accNumber">{{ item.client.getMemberId() }}</span>
+                                    </td>
+                                    <td valign="middle" class="text-center">
+                                        <span class="accNumber">{{ item.getAccountName() }}</span>
+                                        <br>
+                                        <span class="accName">{{ item.getBankAccount() }}</span>
+                                        <br>
+                                        <span class="accStatus">{{ item.getBankName() }}</span>
+                                    </td>
+                                    <td valign="middle" class="text-center">
+                                        <span class="email">{{ item.getEmail() }}</span>
+                                        <br>
+                                        <span class="phone">{{ item.getPhone() }}</span>
+                                    </td>
+                                    <td valign="middle" class="text-center">
+                                        <div class="btn-group btn-group-justified btn-group-xs">
+                                            <a href="#" class="btn btn-primary">Set Done</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
