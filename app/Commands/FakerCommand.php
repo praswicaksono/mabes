@@ -53,7 +53,6 @@ class FakerCommand extends BaseCommand
                 $this->slim_app->em->flush();
             }
         }
-
     }
 }
 
