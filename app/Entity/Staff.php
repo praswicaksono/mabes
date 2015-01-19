@@ -11,6 +11,7 @@ namespace Mabes\Entity;
 
 class Staff
 {
+    use MassAssignmentTrait;
     /**
      * @Id @Column(type="integer") @GeneratedValue(strategy="AUTO")
      * @var int
