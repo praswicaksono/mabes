@@ -19,8 +19,8 @@ class Withdrawal
     const STATUS_PROCESSED = 2;
 
     /**
-     * @Id @Column(type="string", length=128) @GeneratedValue(strategy="UUID")
-     * @var string
+     * @Id @Column(type="integer") @GeneratedValue(strategy="AUTO")
+     * @var int
      */
     protected $withdrawal_id;
 
@@ -312,7 +312,7 @@ class Withdrawal
     }
 
     /**
-     * @param string $withdrawal_id
+     * @param int $withdrawal_id
      */
     public function setWithdrawalId($withdrawal_id)
     {
@@ -320,7 +320,7 @@ class Withdrawal
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getWithdrawalId()
     {

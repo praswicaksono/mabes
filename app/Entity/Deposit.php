@@ -20,8 +20,8 @@ class Deposit
     const STATUS_PROCESSED = 2;
 
     /**
-     * @Id @Column(type="string", length=128) @GeneratedValue(strategy="UUID")
-     * @var string
+     * @Id @Column(type="integer") @GeneratedValue(strategy="AUTO")
+     * @var int
      */
     protected $deposit_id;
 
@@ -255,7 +255,7 @@ class Deposit
     }
 
     /**
-     * @param string $deposit_id
+     * @param int $deposit_id
      */
     public function setDepositId($deposit_id)
     {
@@ -263,7 +263,7 @@ class Deposit
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getDepositId()
     {

@@ -13,6 +13,7 @@ use Respect\Validation\Validator as v;
  **/
 class Bank
 {
+    use MassAssignmentTrait;
     /**
      * @Id @Column(type="integer") @GeneratedValue(strategy="AUTO")
      * @var int

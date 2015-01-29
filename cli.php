@@ -7,7 +7,7 @@ require __DIR__ . "/public/bootstrap.php";
 $console = new Application();
 $console->add(new \Mabes\Commands\ImportRebateCommand());
 $console->add(new \Mabes\Commands\InstallCommand());
-$console->add(new \Mabes\Commands\FakerCommand());
+$console->add(new \Mabes\Commands\InitCommand());
 $console->run();
 
 // EOF
