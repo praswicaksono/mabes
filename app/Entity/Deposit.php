@@ -23,7 +23,7 @@ class Deposit
 
     /**
      * @Id @Column(type="integer") @GeneratedValue
-     * @var string
+     * @var int
      */
     protected $deposit_id;
 
@@ -109,7 +109,7 @@ class Deposit
     }
 
     /**
-     * @param string $deposit_id
+     * @param int $deposit_id
      */
     public function setDepositId($deposit_id)
     {
@@ -117,7 +117,7 @@ class Deposit
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getDepositId()
     {

@@ -27,8 +27,8 @@ class Transfer
     const STATUS_SUSPEND = 3;
 
     /**
-     * @Id @Column(type="string", length=128) @GeneratedValue(strategy="UUID")
-     * @var string
+     * @Id @Column(type="integer") @GeneratedValue(strategy="AUTO")
+     * @var int
      */
     protected $transfer_id;
 
@@ -40,11 +40,29 @@ class Transfer
     protected $from_login;
 
     /**
+     * @Column(type="string", length=64)
+     * @var string
+     */
+    protected $from_name;
+
+    /**
+     * @Column(type="string", length=64)
+     * @var string
+     */
+    protected $email;
+
+    /**
      * @ManyToOne(targetEntity="Member", inversedBy="transfer")
      * @JoinColumn(name="client_to", referencedColumnName="account_id")
      * @var \Mabes\Entity\Member
      **/
     protected $to_login;
+
+    /**
+     * @Column(type="string", length=64)
+     * @var string
+     */
+    protected $to_name;
 
     /**
      * @Column(type="float")
@@ -77,7 +95,6 @@ class Transfer
      */
     protected $updated_at;
 
-
     /**
      * @PrePersist
      * @PreUpdate
@@ -107,23 +124,7 @@ class Transfer
     }
 
     /**
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updated_at;
-    }
-
-    /**
-     * @param \DateTime $updated_at
-     */
-    public function setUpdatedAt($updated_at)
-    {
-        $this->updated_at = $updated_at;
-    }
-
-    /**
-     * @return string
+     * @return int
      */
     public function getTransferId()
     {
@@ -131,44 +132,11 @@ class Transfer
     }
 
     /**
-     * @param string $transfer_id
+     * @param int $transfer_id
      */
     public function setTransferId($transfer_id)
     {
         $this->transfer_id = $transfer_id;
-    }
-
-    /**
-     * @return Member
-     */
-    public function getToLogin()
-    {
-        return $this->to_login;
-    }
-
-    /**
-     * @param Member $to_login
-     */
-    public function setToLogin($to_login)
-    {
-        $to_login->addTransferTo($this);
-        $this->to_login = $to_login;
-    }
-
-    /**
-     * @return smallint
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param smallint $status
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
     }
 
     /**
@@ -196,12 +164,109 @@ class Transfer
     }
 
     /**
+     * @return string
+     */
+    public function getFromName()
+    {
+        return $this->from_name;
+    }
+
+    /**
+     * @param string $from_name
+     */
+    public function setFromName($from_name)
+    {
+        $this->from_name = $from_name;
+    }
+
+    /**
      * @param Member $from_login
      */
     public function setFromLogin($from_login)
     {
         $from_login->addTransferFrom($this);
         $this->from_login = $from_login;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param string $phone
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * @return Member
+     */
+    public function getToLogin()
+    {
+        return $this->to_login;
+    }
+
+    /**
+     * @param Member $to_login
+     */
+    public function setToLogin($to_login)
+    {
+        $to_login->addTransferTo($this);
+        $this->to_login = $to_login;
+    }
+
+    /**
+     * @return string
+     */
+    public function getToName()
+    {
+        return $this->to_name;
+    }
+
+    /**
+     * @param string $to_name
+     */
+    public function setToName($to_name)
+    {
+        $this->to_name = $to_name;
+    }
+
+    /**
+     * @return smallint
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param smallint $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 
     /**
@@ -221,18 +286,18 @@ class Transfer
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getPhone()
+    public function getUpdatedAt()
     {
-        return $this->phone;
+        return $this->updated_at;
     }
 
     /**
-     * @param string $phone
+     * @param \DateTime $updated_at
      */
-    public function setPhone($phone)
+    public function setUpdatedAt($updated_at)
     {
-        $this->phone = $phone;
+        $this->updated_at = $updated_at;
     }
 }

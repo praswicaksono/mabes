@@ -21,7 +21,11 @@ class Withdrawal
     const STATUS_PROCESSED = 2;
 
     /**
+<<<<<<< HEAD
      * @Id @Column(type="integer") @GeneratedValue
+=======
+     * @Id @Column(type="integer") @GeneratedValue(strategy="AUTO")
+>>>>>>> 6f5f46f6a2760d4d838b0b98c0b29b8b8df0c484
      * @var int
      */
     protected $withdrawal_id;
@@ -95,7 +99,11 @@ class Withdrawal
     }
 
     /**
+<<<<<<< HEAD
      * @return float
+=======
+     * @param int $withdrawal_id
+>>>>>>> 6f5f46f6a2760d4d838b0b98c0b29b8b8df0c484
      */
     public function getAmount()
     {
@@ -103,7 +111,11 @@ class Withdrawal
     }
 
     /**
+<<<<<<< HEAD
      * @param float $amount
+=======
+     * @return int
+>>>>>>> 6f5f46f6a2760d4d838b0b98c0b29b8b8df0c484
      */
     public function setAmount($amount)
     {

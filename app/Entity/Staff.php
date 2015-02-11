@@ -3,6 +3,8 @@
 
 namespace Mabes\Entity;
 
+use Mabes\Core\CommonBehaviour\MassAssignmentTrait;
+
 /**
  * @Entity
  * @Table(name="staff")
@@ -11,6 +13,7 @@ namespace Mabes\Entity;
 
 class Staff
 {
+    use MassAssignmentTrait;
     /**
      * @Id @Column(type="integer") @GeneratedValue(strategy="AUTO")
      * @var int
