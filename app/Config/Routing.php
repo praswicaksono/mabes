@@ -10,6 +10,34 @@ return [
     ],
     [
         "http_method" => "get",
+        "route" => "/klaim-rebates",
+        "class" => "\\Mabes\\Controllers\\ClaimRebatesController",
+        "method" => "getClaimRebates",
+        "auth" => false
+    ],
+    [
+        "http_method" => "post",
+        "route" => "/klaim-rebates",
+        "class" => "\\Mabes\\Controllers\\ClaimRebatesController",
+        "method" => "postClaimRebates",
+        "auth" => false
+    ],
+    [
+        "http_method" => "get",
+        "route" => "/register",
+        "class" => "\\Mabes\\Controllers\\RegistrationController",
+        "method" => "getRegistration",
+        "auth" => false
+    ],
+    [
+        "http_method" => "post",
+        "route" => "/register",
+        "class" => "\\Mabes\\Controllers\\RegistrationController",
+        "method" => "postRegistration",
+        "auth" => false
+    ],
+    [
+        "http_method" => "get",
         "route" => "/rebates",
         "class" => "\\Mabes\\Controllers\\RebatesController",
         "method" => "getRebates",

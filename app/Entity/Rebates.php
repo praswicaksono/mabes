@@ -28,7 +28,7 @@ class Rebates
 
     /**
      * @Column(type="datetime")
-     * @var datetime
+     * @var \DateTime
      */
     protected $open_time;
 

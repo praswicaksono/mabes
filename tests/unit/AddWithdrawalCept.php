@@ -1,12 +1,12 @@
 <?php
 
 $I = new UnitTester($scenario);
-$I->wantTo('add deposit');
+$I->wantTo('add withdrawal');
 
 $app = \Slim\Slim::getInstance();
 
 $app->container->singleton(
-    "CreateDepositService",
+    "CreateWithdrawalService",
     function () use ($app) {
         $member_repo = \Codeception\Util\Stub::make(
             "\\Mabes\\Entity\\MemberRepository",
@@ -14,14 +14,13 @@ $app->container->singleton(
                 "findOneBy" => function () {
                     $member = new \Mabes\Entity\Member();
                     $member->setAccountId(12345);
-                    $member->setCreatedAt(new \DateTime());
                     return $member;
                 }
             ]
         );
 
-        $depo_repo = \Codeception\Util\Stub::make(
-            "\\Mabes\\Entity\\DepositRepository",
+        $wd_repo = \Codeception\Util\Stub::make(
+            "\\Mabes\\Entity\\WithdrawalRepository",
             [
                 "save" => function () {
                     return true;
@@ -29,7 +28,7 @@ $app->container->singleton(
             ]
         );
 
-        $event_emittier = \Codeception\Util\Stub::make(
+        $event_emitter = \Codeception\Util\Stub::make(
             "\\Evenement\\EventEmitter",
             [
                 "emit" => function () {
@@ -40,22 +39,20 @@ $app->container->singleton(
 
         $validator = $app->container->get("Validator");
 
-        return new \Mabes\Service\CreateDepositService($member_repo, $depo_repo, $validator, $event_emittier);
+        return new \Mabes\Service\CreateWithdrawalService($member_repo, $wd_repo, $validator, $event_emitter);
     }
 );
 
 $data = [
     "account_id" => 1234,
-    "amount_idr" => 12000,
-    "amount_usd" => 1.2,
-    "to_bank" => "BCA"
+    "amount" => 1,
 ];
 
-$command = new \Mabes\Service\Command\CreateDepositCommand();
+$command = new \Mabes\Service\Command\CreateWithdrawalCommand();
 $command->massAssignment($data);
 
-$service = $app->container->get("CreateDepositService");
+$service = $app->container->get("CreateWithdrawalService");
 
-$I->assertEquals(0, $service->execute($command));
+$I->assertEquals(null, $service->execute($command));
 
 // EOF

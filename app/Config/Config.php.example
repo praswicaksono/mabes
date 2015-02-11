@@ -21,6 +21,12 @@ return [
         "name" => "mabes"
     ],
     "secret_key" => "CHANGE-ME-IN-FUTURE",
+    "email" => [
+            "smtp.host" => "host",
+            "smtp.port" => "22",
+            "smtp.username" => "username",
+            "smtp.password" => "password"
+        ]
 ];
 
 // EOF

@@ -4,33 +4,28 @@
 namespace Mabes\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Respect\Validation\Validator as v;
+use Mabes\Core\CommonBehaviour\Timestampable;
 
 /**
- * @Entity
+ * @Entity(repositoryClass="MemberRepository")
  * @Table(name="member", indexes={@Index(name="search_idx", columns={"full_name", "email"})})
  * @HasLifecycleCallbacks
  **/
 class Member
 {
-    use MassAssignmentTrait;
+    use Timestampable;
+
     /**
      * @Id @Column(type="integer")
      * @var int
      */
-    protected $member_id;
+    protected $account_id;
 
     /**
      * @Column(type="string", length=128)
      * @var string
      */
     protected $full_name;
-
-    /**
-     * @Column(type="string", length=64)
-     * @var string
-     */
-    protected $country;
 
     /**
      * @Column(type="string", length=32)
@@ -45,10 +40,28 @@ class Member
     protected $email;
 
     /**
-     * @Column(type="date")
+     * @Column(type="string", length=64)
      * @var string
      */
-    protected $register_date;
+    protected $bank_name;
+
+    /**
+     * @Column(type="string", length=64)
+     * @var string
+     */
+    protected $account_number;
+
+    /**
+     * @Column(type="string", length=128)
+     * @var string
+     */
+    protected $account_holder;
+
+    /**
+     * @OneToOne(targetEntity="ClaimRebate", mappedBy="member")
+     * @var ClaimRebate
+     */
+    protected $claim_rebate;
 
     /**
      * @OneToMany(targetEntity="Withdrawal", mappedBy="client")
@@ -74,6 +87,9 @@ class Member
      **/
     protected $transfer_to = null;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->withdrawals = new ArrayCollection();
@@ -82,85 +98,68 @@ class Member
         $this->transfer_to = new ArrayCollection();
     }
 
+    /**
+     * @param $withdrawal
+     */
     public function addWithdrawal($withdrawal)
     {
         $this->withdrawals[] = $withdrawal;
     }
 
+    /**
+     * @return ArrayCollection
+     */
     public function getWithdrawals()
     {
         return $this->withdrawals;
     }
 
+    /**
+     * @param $deposit
+     */
     public function addDeposit($deposit)
     {
         $this->deposits[] = $deposit;
     }
 
+    /**
+     * @return ArrayCollection
+     */
     public function getDeposits()
     {
         return $this->deposits;
     }
 
+    /**
+     * @param $transfer_from
+     */
     public function addTransferFrom($transfer_from)
     {
         $this->transfer_from[] = $transfer_from;
     }
 
+    /**
+     * @return ArrayCollection
+     */
     public function getTransferFrom()
     {
         return $this->transfer_from;
     }
 
+    /**
+     * @param $transfer_to
+     */
     public function addTransferTo($transfer_to)
     {
         $this->transfer_to[] = $transfer_to;
     }
 
+    /**
+     * @return ArrayCollection
+     */
     public function getTransferTo()
     {
         return $this->transfer_to;
-    }
-
-
-    /**
-     * @PrePersist @PreUpdate
-     */
-    public function validate()
-    {
-        // member_id validation
-        v::numeric()->assert($this->member_id);
-
-        // full_name validation
-        v::alnum()->length(3, 128)->assert($this->full_name);
-
-        // country validation
-        v::alnum()->assert($this->country);
-
-        // phone validation
-        v::numeric("+")->startsWith("+")->assert($this->phone);
-
-        // email validation
-        v::email()->assert($this->email);
-
-        // register_date validation
-        v::date()->assert($this->register_date);
-    }
-
-    /**
-     * @param mixed $country
-     */
-    public function setCountry($country)
-    {
-        $this->country = $country;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCountry()
-    {
-        return $this->country;
     }
 
     /**
@@ -196,22 +195,6 @@ class Member
     }
 
     /**
-     * @param int $member_id
-     */
-    public function setMemberId($member_id)
-    {
-        $this->member_id = $member_id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getMemberId()
-    {
-        return $this->member_id;
-    }
-
-    /**
      * @param mixed $phone
      */
     public function setPhone($phone)
@@ -228,19 +211,83 @@ class Member
     }
 
     /**
-     * @param mixed $register_date
+     * @return int
      */
-    public function setRegisterDate($register_date)
+    public function getAccountId()
     {
-        $this->register_date = $register_date;
+        return $this->account_id;
     }
 
     /**
-     * @return mixed
+     * @param int $account_id
      */
-    public function getRegisterDate()
+    public function setAccountId($account_id)
     {
-        return $this->register_date;
+        $this->account_id = $account_id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBankName()
+    {
+        return $this->bank_name;
+    }
+
+    /**
+     * @param string $bank_name
+     */
+    public function setBankName($bank_name)
+    {
+        $this->bank_name = $bank_name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAccountNumber()
+    {
+        return $this->account_number;
+    }
+
+    /**
+     * @param string $account_number
+     */
+    public function setAccountNumber($account_number)
+    {
+        $this->account_number = $account_number;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAccountHolder()
+    {
+        return $this->account_holder;
+    }
+
+    /**
+     * @param string $account_holder
+     */
+    public function setAccountHolder($account_holder)
+    {
+        $this->account_holder = $account_holder;
+    }
+
+    /**
+     * @return ClaimRebate
+     */
+    public function getClaimRebate()
+    {
+        return $this->claim_rebate;
+    }
+
+    /**
+     * @param ClaimRebate $claim_rebate
+     */
+    public function setClaimRebate(ClaimRebate $claim_rebate)
+    {
+        $this->claim_rebate = $claim_rebate;
     }
 }
 

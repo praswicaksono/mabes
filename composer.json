@@ -8,13 +8,15 @@
         "doctrine/orm": "~2.4",
         "zeuxisoo/slim-whoops": "0.3.*",
         "codeception/codeception": "*",
-        "respect/validation": "0.6.*",
         "ircmaxell/password-compat": "~1.0",
         "yusukezzz/slim-debugbar": "~1.0",
         "akrabat/rka-slim-session-middleware": "~1.0",
         "symfony/console": "~2.6",
         "gregwar/captcha": "~1.0",
-        "codeguy/upload": "*"
+        "codeguy/upload": "*",
+        "symfony/validator": "~2.6",
+        "evenement/evenement": "~2.0",
+        "swiftmailer/swiftmailer": "~5.3"
     },
     "license": "MIT",
     "authors": [

@@ -4,7 +4,8 @@
 namespace Mabes\Entity;
 
 
-use Respect\Validation\Validator as v;
+use Mabes\Core\CommonBehaviour\MassAssignmentTrait;
+use Mabes\Core\CommonBehaviour\Timestampable;
 
 /**
  * @Entity(repositoryClass="DepositRepository")
@@ -13,6 +14,7 @@ use Respect\Validation\Validator as v;
  **/
 class Deposit
 {
+    use Timestampable;
     use MassAssignmentTrait;
 
     const STATUS_OPEN = 1;
@@ -20,7 +22,7 @@ class Deposit
     const STATUS_PROCESSED = 2;
 
     /**
-     * @Id @Column(type="string", length=128) @GeneratedValue(strategy="UUID")
+     * @Id @Column(type="integer") @GeneratedValue
      * @var string
      */
     protected $deposit_id;
@@ -38,41 +40,11 @@ class Deposit
     protected $amount_usd;
 
     /**
-     * @Column(type="string", length=32)
-     * @var string
-     */
-    protected $bank_from;
-
-    /**
-     * @Column(type="string", length=32)
-     * @var string
-     */
-    protected $account_number;
-
-    /**
      * @Column(type="string", length=64)
      * @var string
      */
-    protected $account_name;
+    protected $to_bank;
 
-    /**
-     * @Column(type="string", length=32)
-     * @var string
-     */
-    protected $email;
-
-    /**
-     * @Column(type="string", length=32)
-     * @var string
-     */
-    protected $phone;
-
-    /**
-     * @Column(type="string", length=64, nullable=true)
-     * @var string
-     */
-
-    protected $upload_file;
     /**
      * @Column(type="integer")
      * @var integer
@@ -80,97 +52,12 @@ class Deposit
     protected $status;
 
     /**
-     * @Column(type="datetime")
-     * @var \DateTime
-     *
-     */
-    protected $created_at;
-
-    /**
-     * @Column(type="datetime")
-     * @var \DateTime
-     */
-    protected $updated_at;
-
-    /**
      * @ManyToOne(targetEntity="Member", inversedBy="deposit")
-     * @JoinColumn(name="member_id", referencedColumnName="member_id")
+     * @JoinColumn(name="account_id", referencedColumnName="account_id")
      * @var \Mabes\Entity\Member
      **/
     protected $client;
 
-    /**
-     * @ManyToOne(targetEntity="Bank", inversedBy="deposit")
-     * @JoinColumn(name="bank_id", referencedColumnName="bank_id")
-     * @var \Mabes\Entity\Bank
-     **/
-    protected $bank;
-
-    /**
-     * @PrePersist
-     * @PreUpdate
-     */
-    public function validate()
-    {
-        v::float()->assert($this->amount_idr);
-        v::float()->assert($this->amount_usd);
-        v::alnum()->length(2, 32)->assert($this->bank_from);
-        v::numeric()->assert($this->account_number);
-        v::alnum()->length(2, 64)->assert($this->account_name);
-        v::email()->assert($this->email);
-        v::numeric("+")->startsWith("+")->assert($this->phone);
-        v::notEmpty()->assert($this->status);
-        v::notEmpty()->assert($this->upload_file);
-    }
-
-    /**
-     * @PrePersist
-     */
-    public function beforeInsert()
-    {
-        $this->created_at = new \DateTime();
-        $this->updated_at = new \DateTime();
-    }
-
-    /**
-     * @PreUpdate
-     */
-    public function beforeUpdate()
-    {
-        $this->updated_at = new \DateTime();
-    }
-
-    /**
-     * @param string $account_name
-     */
-    public function setAccountName($account_name)
-    {
-        $this->account_name = $account_name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAccountName()
-    {
-        return $this->account_name;
-    }
-
-    /**
-     * @param string $account_number
-     */
-    public function setAccountNumber($account_number)
-    {
-        $this->account_number = $account_number;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAccountNumber()
-    {
-        return $this->account_number;
-    }
 
     /**
      * @param float $amount_idr
@@ -202,39 +89,6 @@ class Deposit
     public function getAmountUsd()
     {
         return $this->amount_usd;
-    }
-
-    /**
-     * @param mixed $bank
-     */
-    public function setBank($bank)
-    {
-        $bank->addDeposit($this);
-        $this->bank = $bank;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getBank()
-    {
-        return $this->bank;
-    }
-
-    /**
-     * @param string $bank_from
-     */
-    public function setBankFrom($bank_from)
-    {
-        $this->bank_from = $bank_from;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBankFrom()
-    {
-        return $this->bank_from;
     }
 
     /**
@@ -271,38 +125,6 @@ class Deposit
     }
 
     /**
-     * @param string $email
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param string $phone
-     */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPhone()
-    {
-        return $this->phone;
-    }
-
-    /**
      * @param int $status
      */
     public function setStatus($status)
@@ -321,17 +143,17 @@ class Deposit
     /**
      * @return string
      */
-    public function getUploadFile()
+    public function getToBank()
     {
-        return $this->upload_file;
+        return $this->to_bank;
     }
 
     /**
-     * @param string $upload_file
+     * @param string $to_bank
      */
-    public function setUploadFile($upload_file)
+    public function setToBank($to_bank)
     {
-        $this->upload_file = $upload_file;
+        $this->to_bank = $to_bank;
     }
 }
 

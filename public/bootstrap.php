@@ -60,6 +60,88 @@ $app->container->singleton(
     }
 );
 
+$app->container->singleton(
+    "Validator",
+    function () {
+        return \Symfony\Component\Validator\Validation::createValidatorBuilder()
+            ->enableAnnotationMapping()
+            ->getValidator();
+    }
+);
+
+// CreateMemberService
+$app->container->singleton(
+    "CreateMemberService",
+    function () use ($app) {
+        $member_repo = $app->container->get("em")->getRepository("Mabes\\Entity\\Member");
+        $validator = $app->container->get("Validator");
+
+        return new Mabes\Service\CreateMemberService($member_repo, $validator);
+    }
+);
+
+// CreateDepositService
+$app->container->singleton(
+    "CreateDepositService",
+    function () use ($app) {
+        $member_repo = $app->container->get("em")->getRepository("Mabes\\Entity\\Member");
+        $depo_repo = $app->container->get("em")->getRepository("Mabes\\Entity\\Deposit");
+        $validator = $app->container->get("Validator");
+        $event_emitter = $app->container->get("EventEmitter");
+
+        return new \Mabes\Service\CreateDepositService($member_repo, $depo_repo, $validator, $event_emitter);
+    }
+);
+
+// CreateWithdrawalService
+$app->container->singleton(
+    "CreateWithdrawalService",
+    function () use ($app) {
+        $member_repo = $app->container->get("em")->getRepository("Mabes\\Entity\\Member");
+        $withdrawal_repo = $app->container->get("em")->getRepository("Mabes\\Entity\\Withdrawal");
+        $validator = $app->container->get("Validator");
+        $event_emitter = $app->container->get("EventEmitter");
+
+        return new \Mabes\Service\CreateWithdrawalService($member_repo, $withdrawal_repo, $validator, $event_emitter);
+    }
+);
+
+// ClaimRebateService
+$app->container->singleton(
+    "ClaimRebateService",
+    function () use ($app) {
+        $member_repo = $app->container->get("em")->getRepository("Mabes\\Entity\\Member");
+        $claim_rebate_repo = $app->container->get("em")->getRepository("Mabes\\Entity\\ClaimRebate");
+        $validator = $app->container->get("Validator");
+        $event_emitter = $app->container->get("EventEmitter");
+
+        return new \Mabes\Service\ClaimRebateService($member_repo, $claim_rebate_repo, $validator, $event_emitter);
+    }
+);
+
+// MailerService
+$app->container->singleton(
+    "MailerService",
+    function () use ($app, $config) {
+        $templating_service = new \Mabes\Service\EmailTemplatingService();
+        return new \Mabes\Service\MailerService(
+            $config["email"]["smtp.host"],
+            $config["email"]["smtp.port"],
+            $config["email"]["smtp.username"],
+            $config["email"]["smtp.password"],
+            $templating_service
+        );
+    }
+);
+
+// EventEmitter
+$app->container->singleton(
+    "EventEmitter",
+    function () {
+        return new \Evenement\EventEmitter();
+    }
+);
+
 
 // session manager
 $app->container->singleton(
@@ -92,4 +174,49 @@ if ($config["environment"] == "development") {
 $twig = $app->view()->getEnvironment();
 $twig->addGlobal('base_url', $config["base_url"]);
 
+// Validator autoload
+\Doctrine\Common\Annotations\AnnotationRegistry::registerAutoloadNamespace(
+    "Symfony\\Component\\Validator\\Constraint",
+    __DIR__ . "/../vendor/symfony/validator"
+);
+
+// Event register
+
 // EOF
+$emitter = $app->container->get("EventEmitter");
+
+$emitter->on(
+    "deposit.created",
+    function ($data) use ($app) {
+        $mailer = $app->container->get("MailerService");
+        $mailer->createMessage("Notifikasi Deposit MabesFx")
+            ->send(
+                "deposit",
+                [
+                    "support@mabesfx.com" => "MabesFx Support"
+                ],
+                [
+                    $data["email"], "finance@mabesfx.com"
+                ],
+                $data
+            );
+    }
+);
+
+$emitter->on(
+    "withdrawal.created",
+    function ($data) use ($app) {
+        $mailer = $app->container->get("MailerService");
+        $mailer->createMessage("Notifikasi Withdrawal MabesFx")
+            ->send(
+                "withdrawal",
+                [
+                    "support@mabesfx.com" => "MabesFx Support"
+                ],
+                [
+                    $data["email"], "finance@mabesfx.com"
+                ],
+                $data
+            );
+    }
+);

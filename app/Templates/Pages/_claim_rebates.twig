@@ -1,0 +1,9 @@
+{% extends 'base.twig' %}
+
+{% block pagetitle %}Klaim Rebates{% endblock %}
+
+{% block content %}
+    {# DEBUG: USE REAL CONTENT #}
+    {% include 'Components/_paragraph.twig' with {'title_content': 'Klaim Rebate', 'content': 'Silahkan ini form dibawah untuk mengklaim rebate anda'} %}
+    {% include 'Components/_forms.twig' with {'form_template': 'claim_rebates'} %}
+{% endblock %}

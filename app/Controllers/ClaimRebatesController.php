@@ -1,12 +1,14 @@
 <?php
 
+
 namespace Mabes\Controllers;
 
-use Mabes\Service\Command\CreateDepositCommand;
 
-class DepositController extends BaseController
+use Mabes\Service\Command\ClaimRebateCommand;
+
+class ClaimRebatesController extends BaseController
 {
-    public function getDeposit()
+    public function getClaimRebates()
     {
         $this->app->view()->appendData(
             [
@@ -14,31 +16,30 @@ class DepositController extends BaseController
             ]
         );
 
-        $this->app->render('Pages/_deposit.twig');
+        $this->app->render('Pages/_claim_rebates.twig');
     }
 
-    public function postDeposit()
+    public function postClaimRebates()
     {
         try {
             if ($this->app->session->phrase != $this->app->request->post("captcha")) {
                 throw new \DomainException("Captcha yang anda masukkan salah!");
             }
 
-            $deposit_service = $this->app->container->get("CreateDepositService");
+            $deposit_service = $this->app->container->get("ClaimRebateService");
 
-            $deposit_command = new CreateDepositCommand();
-            $deposit_command->massAssignment($this->app->request->post());
+            $claim_command = new ClaimRebateCommand();
+            $claim_command->massAssignment($this->app->request->post());
 
-            $ticket = $deposit_service->execute($deposit_command);
+            $deposit_service->execute($claim_command);
 
             $this->app->view()->appendData(
                 [
                     "isSuccess" => true,
                     "successTitle" => "Berhasil",
-                    "successMessage" => "Tiket deposit anda : #{$ticket}"
+                    "successMessage" => "Rebate anda telah terkonfirmasi, jika anda ingin mengganti tujuan klaim silahkan hubungi CS kami"
                 ]
             );
-
         } catch (\DomainException $e) {
             $this->validationMessage(
                 [
@@ -53,6 +54,8 @@ class DepositController extends BaseController
             ]
         );
 
-        $this->app->render('Pages/_deposit.twig');
+        $this->app->render('Pages/_claim_rebates.twig');
     }
 }
+
+// EOF

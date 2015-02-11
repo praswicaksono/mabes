@@ -8,6 +8,7 @@
 
 namespace Mabes\Entity;
 
+use Mabes\Core\CommonBehaviour\MassAssignmentTrait;
 use Respect\Validation\Validator as v;
 
 /**
@@ -33,14 +34,14 @@ class Transfer
 
     /**
      * @ManyToOne(targetEntity="Member", inversedBy="transfer")
-     * @JoinColumn(name="client_from", referencedColumnName="member_id")
+     * @JoinColumn(name="client_from", referencedColumnName="account_id")
      * @var \Mabes\Entity\Member
      **/
     protected $from_login;
 
     /**
      * @ManyToOne(targetEntity="Member", inversedBy="transfer")
-     * @JoinColumn(name="client_to", referencedColumnName="member_id")
+     * @JoinColumn(name="client_to", referencedColumnName="account_id")
      * @var \Mabes\Entity\Member
      **/
     protected $to_login;

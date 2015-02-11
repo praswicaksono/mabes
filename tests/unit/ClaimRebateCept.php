@@ -1,12 +1,12 @@
 <?php
 
 $I = new UnitTester($scenario);
-$I->wantTo('add deposit');
+$I->wantTo('claim rebate');
 
 $app = \Slim\Slim::getInstance();
 
 $app->container->singleton(
-    "CreateDepositService",
+    "ClaimRebateService",
     function () use ($app) {
         $member_repo = \Codeception\Util\Stub::make(
             "\\Mabes\\Entity\\MemberRepository",
@@ -20,8 +20,8 @@ $app->container->singleton(
             ]
         );
 
-        $depo_repo = \Codeception\Util\Stub::make(
-            "\\Mabes\\Entity\\DepositRepository",
+        $rebate_repo = \Codeception\Util\Stub::make(
+            "\\Mabes\\Entity\\ClaimRebateRepository",
             [
                 "save" => function () {
                     return true;
@@ -29,7 +29,7 @@ $app->container->singleton(
             ]
         );
 
-        $event_emittier = \Codeception\Util\Stub::make(
+        $event_emitter = \Codeception\Util\Stub::make(
             "\\Evenement\\EventEmitter",
             [
                 "emit" => function () {
@@ -40,22 +40,20 @@ $app->container->singleton(
 
         $validator = $app->container->get("Validator");
 
-        return new \Mabes\Service\CreateDepositService($member_repo, $depo_repo, $validator, $event_emittier);
+        return new \Mabes\Service\ClaimRebateService($member_repo, $rebate_repo, $validator, $event_emitter);
     }
 );
 
 $data = [
     "account_id" => 1234,
-    "amount_idr" => 12000,
-    "amount_usd" => 1.2,
-    "to_bank" => "BCA"
+    "type" => "BANK",
 ];
 
-$command = new \Mabes\Service\Command\CreateDepositCommand();
+$command = new \Mabes\Service\Command\ClaimRebateCommand();
 $command->massAssignment($data);
 
-$service = $app->container->get("CreateDepositService");
+$service = $app->container->get("ClaimRebateService");
 
-$I->assertEquals(0, $service->execute($command));
+$I->assertEquals(true, $service->execute($command));
 
 // EOF

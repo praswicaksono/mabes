@@ -1,0 +1,70 @@
+<form action="" method="post" class="col-sm-9 col-sm-offset-1 form-horizontal page-form" enctype="multipart/form-data">
+    {% if isError or isSuccess %}
+        {% include 'Components/_message.twig' %}
+    {% endif %}
+    <input type="hidden" value="{{ csrf_token }}" name="{{ csrf_key }}">
+    <div class="form-box">
+        <div class="form-group">
+            <label for="account_id" class="col-sm-4">MyHotForex ID</label>
+            <div class="col-sm-8">
+                <input type="text" id="account_id" name="account_id" class="form-control" value="{{ account_id }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="fullname" class="col-sm-4">Nama Lengkap</label>
+            <div class="col-sm-8">
+                <input type="text" id="fullname" name="fullname" class="form-control" value="{{ fullname }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email" class="col-sm-4">Email</label>
+            <div class="col-sm-8">
+                <input type="text" id="email" name="email" class="form-control" value="{{ email }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone" class="col-sm-4">No Handphone</label>
+            <div class="col-sm-8">
+                <input type="text" id="phone" name="phone" class="form-control" value="{{ phone }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="bank_name" class="col-sm-4">Bank</label>
+            <div class="col-sm-8">
+                <select name="bank_name" id="bank_name" class="form-control">
+                    <option value="BCA">BCA</option>
+                    <option value="MANDIRI">Mandiri</option>
+                    <option value="BNI">BNI</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="accNumber" class="col-sm-4">Nomor Rekening</label>
+            <div class="col-sm-8">
+                <input type="text" id="account_number" name="account_number" class="form-control" value="{{ account_number }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="accHolder" class="col-sm-4">Atas Nama Rekening</label>
+            <div class="col-sm-8">
+                <input type="text" id="account_holder" name="account_holder" class="form-control" value="{{ account_holder }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="captcha" class="col-sm-12 text-center">Ketik ulang teks berikut</label>
+            <div class="col-sm-8 col-sm-offset-2 captcha-img">
+                <img src="{{ captcha.inline() }}" class="center-block" alt="">
+            </div>
+            <div class="col-sm-8 col-sm-offset-2">
+                <input type="text" id="captcha" name="captcha" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-6 col-sm-offset-3">
+                <button type="submit" class="btn btn-primary btn-block">
+                    Kirim
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

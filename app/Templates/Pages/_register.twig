@@ -1,0 +1,9 @@
+{% extends 'base.twig' %}
+
+{% block pagetitle %}Validasi Akun{% endblock %}
+
+{% block content %}
+    {# DEBUG: USE REAL CONTENT #}
+    {% include 'Components/_paragraph.twig' with {'title_content': 'Validasi Akun', 'content': 'Terima kasih telah bergabung dengan MabesFx. Untuk menambah kenyamanan aktivitas trading anda, harap mengisi form dibawah ini dengan data diri anda yang valid.'} %}
+    {% include 'Components/_forms.twig' with {'form_template': 'register'} %}
+{% endblock %}

@@ -3,10 +3,7 @@
 
 namespace Mabes\Controllers;
 
-use Mabes\Core\Exception\InvalidCustomException;
-use Mabes\Entity\Withdrawal;
-use Respect\Validation\Exceptions\AbstractNestedException;
-use Respect\Validation\Validator as v;
+use Mabes\Service\Command\CreateWithdrawalCommand;
 
 class WithdrawalController extends BaseController
 {
@@ -27,50 +24,31 @@ class WithdrawalController extends BaseController
     public function postWithdrawal()
     {
         try {
-
             if ($this->app->session->phrase != $this->app->request->post("captcha")) {
-                throw new InvalidCustomException("Captcha yang anda masukan salah");
+                throw new \DomainException("Captcha yang anda masukkan salah!");
             }
 
-            $member = $this->app->em->find("Mabes\\Entity\\Member", $this->app->request->post("login"));
+            $withdrawal_service = $this->app->container->get("CreateWithdrawalService");
 
-            v::object()->assert($member);
+            $withdrawal_command = new CreateWithdrawalCommand();
+            $withdrawal_command->massAssignment($this->app->request->post());
 
-            $withdrawal = new Withdrawal();
-            $withdrawal->massAssignment($this->app->request->post());
-            $withdrawal->setClient($member);
-            $withdrawal->setStatus(Withdrawal::STATUS_OPEN);
-
-            $this->app->em->persist($withdrawal);
-            $this->app->em->flush();
+            $ticket = $withdrawal_service->execute($withdrawal_command);
 
             $this->app->view()->appendData(
                 [
                     "isSuccess" => true,
-                    "successTitle" => "Success",
-                    "successMessage" => "Withdrawal anda sudah kami terima"
+                    "successTitle" => "Berhasil",
+                    "successMessage" => "Tiket withdrawal anda : #{$ticket}"
                 ]
             );
-        } catch (AbstractNestedException $e) {
 
-            $errors = $e->findMessages(
+        } catch (\DomainException $e) {
+            $this->validationMessage(
                 [
-                    "numeric" => "{{name}} harus berisi numeric",
-                    "alnum" => "{{name}} harus berisi alphanumeric",
-                    "email" => "{{name}} harus berisi email yang valid",
-                    "float" => "{{name}} harus bernilai desimal",
-                    "notEmpty" => "Mohon diisi semua field",
-                    "equals" => "{{input}} tidak cocok dengan yang ada didatabase",
-                    "object" => "Nomor login tidak dapat ditemukan didalam database",
-                    "startsWith" => "Nomor telepon harus berawaln dengan +"
+                    "custom" => $e->getMessage()
                 ]
             );
-
-            $this->validationMessage($errors);
-        } catch (InvalidCustomException $e) {
-            $this->validationMessage([
-                    "custom" => $e->getMessage()
-                ]);
         }
 
         $this->app->view()->appendData(
