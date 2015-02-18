@@ -70,7 +70,7 @@ class ClaimRebateService
         $data = [
             "email" => $member->getEmail(),
             "account_id" => $member->getAccountId(),
-            "full_name" => $member->getFullName(),
+            "fullname" => $member->getFullName(),
             "type" => $claim_rebate->getType(),
             "bank_name" => $member->getBankName(),
             "account_number" => $member->getAccountNumber(),

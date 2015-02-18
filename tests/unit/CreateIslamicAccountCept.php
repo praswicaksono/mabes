@@ -1,12 +1,12 @@
 <?php
 
 $I = new UnitTester($scenario);
-$I->wantTo('add withdrawal');
+$I->wantTo('create islamic account');
 
 $app = \Slim\Slim::getInstance();
 
 $app->container->singleton(
-    "CreateWithdrawalService",
+    "CreateIslamicAccountService",
     function () use ($app) {
         $member_repo = \Codeception\Util\Stub::make(
             "\\Mabes\\Entity\\MemberRepository",
@@ -14,13 +14,14 @@ $app->container->singleton(
                 "findOneBy" => function () {
                     $member = new \Mabes\Entity\Member();
                     $member->setAccountId(12345);
+                    $member->setCreatedAt(new \DateTime());
                     return $member;
                 }
             ]
         );
 
-        $wd_repo = \Codeception\Util\Stub::make(
-            "\\Mabes\\Entity\\WithdrawalRepository",
+        $rebate_repo = \Codeception\Util\Stub::make(
+            "\\Mabes\\Entity\\ClaimRebateRepository",
             [
                 "save" => function () {
                     return true;
@@ -39,20 +40,18 @@ $app->container->singleton(
 
         $validator = $app->container->get("Validator");
 
-        return new \Mabes\Service\CreateWithdrawalService($member_repo, $wd_repo, $validator, $event_emitter);
+        return new \Mabes\Service\CreateIslamicAccountService($member_repo, $validator, $event_emitter);
     }
 );
 
 $data = [
     "account_id" => 1234,
-    "amount" => 1,
+    "mt4_account" => 12345,
 ];
 
-$command = new \Mabes\Service\Command\CreateWithdrawalCommand();
+$command = new \Mabes\Service\Command\CreateIslamicAccountCommand();
 $command->massAssignment($data);
 
-$service = $app->container->get("CreateWithdrawalService");
+$service = $app->container->get("CreateIslamicAccountService");
 
-$I->assertEquals(0, $service->execute($command));
-
-// EOF
+$I->assertEquals(true, $service->execute($command));

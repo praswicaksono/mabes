@@ -1,0 +1,9 @@
+{% extends 'base.twig' %}
+
+{% block pagetitle %}Akun Islami{% endblock %}
+
+{% block content %}
+    {# DEBUG: USE REAL CONTENT #}
+    {% include 'Components/_paragraph.twig' with {'title_content': 'Akun Islami', 'content': 'Untuk merubah akun trading anda menjadi akun islami, silahkan isi data berikut'} %}
+    {% include 'Components/_forms.twig' with {'form_template': 'islamic_account'} %}
+{% endblock %}

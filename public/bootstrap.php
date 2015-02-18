@@ -75,8 +75,9 @@ $app->container->singleton(
     function () use ($app) {
         $member_repo = $app->container->get("em")->getRepository("Mabes\\Entity\\Member");
         $validator = $app->container->get("Validator");
+        $event_emitter = $app->container->get("EventEmitter");
 
-        return new Mabes\Service\CreateMemberService($member_repo, $validator);
+        return new Mabes\Service\CreateMemberService($member_repo, $validator, $event_emitter);
     }
 );
 
@@ -116,6 +117,18 @@ $app->container->singleton(
         $event_emitter = $app->container->get("EventEmitter");
 
         return new \Mabes\Service\ClaimRebateService($member_repo, $claim_rebate_repo, $validator, $event_emitter);
+    }
+);
+
+// CreateIslamicAccountService
+$app->container->singleton(
+    "CreateIslamicAccountService",
+    function () use ($app) {
+        $member_repo = $app->container->get("em")->getRepository("Mabes\\Entity\\Member");
+        $validator = $app->container->get("Validator");
+        $event_emitter = $app->container->get("EventEmitter");
+
+        return new \Mabes\Service\CreateIslamicAccountService($member_repo, $validator, $event_emitter);
     }
 );
 
@@ -215,6 +228,60 @@ $emitter->on(
                 ],
                 [
                     $data["email"], "finance@mabesfx.com"
+                ],
+                $data
+            );
+    }
+);
+
+$emitter->on(
+    "validation.created",
+    function ($data) use ($app) {
+        $mailer = $app->container->get("MailerService");
+        $mailer->createMessage("Notifikasi Validasi MabesFx")
+            ->send(
+                "validation",
+                [
+                    "support@mabesfx.com" => "MabesFx Support"
+                ],
+                [
+                    $data["email"], "support@mabesfx.com"
+                ],
+                $data
+            );
+    }
+);
+
+$emitter->on(
+    "claim.rebate.created",
+    function ($data) use ($app) {
+        $mailer = $app->container->get("MailerService");
+        $mailer->createMessage("Notifikasi Klaim Rebate MabesFx")
+            ->send(
+                "klaim_rebate",
+                [
+                    "support@mabesfx.com" => "MabesFx Support"
+                ],
+                [
+                    $data["email"], "finance@mabesfx.com"
+                ],
+                $data
+            );
+    }
+);
+
+$emitter->on(
+    "akun.islami.created",
+    function ($data) use ($app) {
+        $mailer = $app->container->get("MailerService");
+        $mailer->createMessage("Notifikasi Akun Islami MabesFx")
+            ->send(
+                "klaim_rebate",
+                [
+                    "support@mabesfx.com" => "MabesFx Support"
+                ],
+                [
+                    $data["email"], "support@mabesfx.com"
                 ],
                 $data
             );

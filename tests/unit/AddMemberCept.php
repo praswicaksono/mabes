@@ -17,7 +17,16 @@ $app->container->singleton(
         );
         $validator = $app->container->get("Validator");
 
-        return new Mabes\Service\CreateMemberService($member_repo, $validator);
+        $event_emitter = \Codeception\Util\Stub::make(
+            "\\Evenement\\EventEmitter",
+            [
+                "emit" => function () {
+                    return true;
+                }
+            ]
+        );
+
+        return new Mabes\Service\CreateMemberService($member_repo, $validator, $event_emitter);
     }
 );
 

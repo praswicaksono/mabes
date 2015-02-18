@@ -10,6 +10,20 @@ return [
     ],
     [
         "http_method" => "get",
+        "route" => "/akun-islami",
+        "class" => "\\Mabes\\Controllers\\IslamicAccountController",
+        "method" => "getIslamicAccount",
+        "auth" => false
+    ],
+    [
+        "http_method" => "post",
+        "route" => "/akun-islami",
+        "class" => "\\Mabes\\Controllers\\IslamicAccountController",
+        "method" => "postIslamicAccount",
+        "auth" => false
+    ],
+    [
+        "http_method" => "get",
         "route" => "/klaim-rebates",
         "class" => "\\Mabes\\Controllers\\ClaimRebatesController",
         "method" => "getClaimRebates",

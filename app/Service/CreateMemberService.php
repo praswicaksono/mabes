@@ -3,6 +3,7 @@
 
 namespace Mabes\Service;
 
+use Evenement\EventEmitter;
 use Mabes\Core\Contracts\CommandInterface;
 use Mabes\Entity\Member;
 use Mabes\Entity\MemberRepository;
@@ -26,11 +27,21 @@ class CreateMemberService
     private $validator;
 
     /**
+     * @var EventEmitter
+     */
+    private $event_emitter;
+
+    /**
      * @param MemberRepository $member_repo
      * @param ValidatorInterface $validator
+     * @param EventEmitter $event_emitter
      */
-    public function __construct(MemberRepository $member_repo, ValidatorInterface $validator)
-    {
+    public function __construct(
+        MemberRepository $member_repo,
+        ValidatorInterface $validator,
+        EventEmitter $event_emitter
+    ) {
+        $this->event_emitter = $event_emitter;
         $this->member_repo = $member_repo;
         $this->validator = $validator;
     }
@@ -64,6 +75,19 @@ class CreateMemberService
         $member->setPhone($command->getPhone());
 
         $this->member_repo->save($member);
+
+        $data = [
+            "account_id" => $member->getAccountId(),
+            "email" => $member->getEmail(),
+            "phone" => $member->getPhone(),
+            "fullname" => $member->getFullName(),
+            "bank_name" => $member->getBankName(),
+            "account_number" => $member->getAccountNumber(),
+            "account_holder" => $member->getAccountHolder(),
+            "date" => date("Y-m-d H:i:s")
+        ];
+
+        $this->event_emitter->emit("validation.created", [$data]);
 
         return true;
     }
