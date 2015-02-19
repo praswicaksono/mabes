@@ -50,14 +50,17 @@ class CreateIslamicAccountService
             throw new \DomainException($message);
         }
 
-        $person = $this->member_repo->findOneBy([
+        $member = $this->member_repo->findOneBy([
             "account_id" => $command->getAccountId()
         ]);
 
         $data = [
             "account_id" => $command->getAccountId(),
-            "mt4_id" => $command->getMt4Account(),
-            "email" => $person->getEmail()
+            "mt4_account" => $command->getMt4Account(),
+            "fullname" => $member->getFullname(),
+            "phone" => $member->getPhone(),
+            "email" => $member->getEmail(),
+            "date" => date("Y-m-d H:i:s")
         ];
 
         $this->event_emitter->emit("akun.islami.created", [$data]);

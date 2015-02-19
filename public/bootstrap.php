@@ -289,7 +289,7 @@ $emitter->on(
         $mailer = $app->container->get("MailerService");
         $mailer->createMessage("Notifikasi Akun Islami MabesFx")
             ->send(
-                "klaim_rebate",
+                "islamic_account",
                 [
                     "support@mabesfx.com" => "MabesFx Support"
                 ],
