@@ -35,7 +35,7 @@ class CreateDepositCommand implements CommandInterface
 
     /**
      * @var string
-     * @Assert\NotBlank(message="Transber ke bank tidak boleh kosong")
+     * @Assert\NotBlank(message="Transfer ke bank tidak boleh kosong")
      */
     private $to_bank;
 
