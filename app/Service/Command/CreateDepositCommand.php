@@ -30,8 +30,6 @@ class CreateDepositCommand implements CommandInterface
 
     /**
      * @var float
-     * @Assert\NotBlank(message="Jumlah USD tidak boleh kosong")
-     * @Assert\Regex(pattern="/^[0-9]+([.|,][0-9]+)?$/", message="Jumlah USD harus desimal")
      */
     private $amount_usd;
 

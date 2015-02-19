@@ -34,7 +34,7 @@ class Deposit
     protected $amount_idr;
 
     /**
-     * @Column(type="float")
+     * @Column(type="float", nullable=true)
      * @var float
      */
     protected $amount_usd;
