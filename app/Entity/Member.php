@@ -88,6 +88,12 @@ class Member
     protected $transfer_to = null;
 
     /**
+     * @OneToMany(targetEntity="InvestorPassword", mappedBy="account_id")
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    protected $investor_password = null;
+
+    /**
      *
      */
     public function __construct()
@@ -96,6 +102,7 @@ class Member
         $this->deposits = new ArrayCollection();
         $this->transfer_from = new ArrayCollection();
         $this->transfer_to = new ArrayCollection();
+        $this->investor_password = new ArrayCollection();
     }
 
     /**
@@ -128,6 +135,22 @@ class Member
     public function getDeposits()
     {
         return $this->deposits;
+    }
+
+    /**
+     * @param InvestorPassword $investor_password
+     */
+    public function addInvestorPassword(InvestorPassword $investor_password)
+    {
+        $this->investor_password[] = $investor_password;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getInvestorPasswords()
+    {
+        return $this->investor_password;
     }
 
     /**

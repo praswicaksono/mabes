@@ -10,6 +10,20 @@ return [
     ],
     [
         "http_method" => "get",
+        "route" => "/investor-password",
+        "class" => "\\Mabes\\Controllers\\InvestorPasswordController",
+        "method" => "getInvestorPassword",
+        "auth" => false
+    ],
+    [
+        "http_method" => "post",
+        "route" => "/investor-password",
+        "class" => "\\Mabes\\Controllers\\InvestorPasswordController",
+        "method" => "postInvestorPassword",
+        "auth" => false
+    ],
+    [
+        "http_method" => "get",
         "route" => "/akun-islami",
         "class" => "\\Mabes\\Controllers\\IslamicAccountController",
         "method" => "getIslamicAccount",

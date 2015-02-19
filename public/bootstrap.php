@@ -132,6 +132,19 @@ $app->container->singleton(
     }
 );
 
+// AddInvestorPasswordService
+$app->container->singleton(
+    "AddInvestorPasswordService",
+    function () use ($app) {
+        $member_repo = $app->container->get("em")->getRepository("Mabes\\Entity\\Member");
+        $investor_password_repo = $app->container->get("em")->getRepository("Mabes\\Entity\\InvestorPassword");
+        $validator = $app->container->get("Validator");
+        $event_emitter = $app->container->get("EventEmitter");
+
+        return new \Mabes\Service\AddInvestorPasswordService($member_repo, $investor_password_repo, $validator, $event_emitter);
+    }
+);
+
 // MailerService
 $app->container->singleton(
     "MailerService",
@@ -277,6 +290,24 @@ $emitter->on(
         $mailer->createMessage("Notifikasi Akun Islami MabesFx")
             ->send(
                 "klaim_rebate",
+                [
+                    "support@mabesfx.com" => "MabesFx Support"
+                ],
+                [
+                    $data["email"], "support@mabesfx.com"
+                ],
+                $data
+            );
+    }
+);
+
+$emitter->on(
+    "investor.password.created",
+    function ($data) use ($app) {
+        $mailer = $app->container->get("MailerService");
+        $mailer->createMessage("Notifikasi Investor Password MabesFx")
+            ->send(
+                "investor_password",
                 [
                     "support@mabesfx.com" => "MabesFx Support"
                 ],
