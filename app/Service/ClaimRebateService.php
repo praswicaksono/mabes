@@ -63,6 +63,7 @@ class ClaimRebateService
 
         $claim_rebate = new ClaimRebate();
         $claim_rebate->setMember($member);
+        $claim_rebate->setMt4Account($command->getMt4Account());
         $claim_rebate->setType($command->getType());
 
         $this->claim_rebate_repo->save($claim_rebate);
@@ -72,6 +73,7 @@ class ClaimRebateService
             "account_id" => $member->getAccountId(),
             "fullname" => $member->getFullName(),
             "type" => $claim_rebate->getType(),
+            "mt4_account" => $claim_rebate->getMt4Account(),
             "bank_name" => $member->getBankName(),
             "account_number" => $member->getAccountNumber(),
             "account_holder" => $member->getAccountHolder(),

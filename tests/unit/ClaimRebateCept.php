@@ -46,6 +46,7 @@ $app->container->singleton(
 
 $data = [
     "account_id" => 1234,
+    "mt4_account" => 4321,
     "type" => "BANK",
 ];
 

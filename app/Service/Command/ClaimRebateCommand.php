@@ -22,6 +22,13 @@ class ClaimRebateCommand implements CommandInterface
     private $account_id;
 
     /**
+     * @Assert\NotBlank(message="No akun trading tidak boleh kosong")
+     * @Assert\Regex(pattern="/^\d*(\,|\.)?\d+$/", message="No akun trading harus angka")
+     * @var int
+     */
+    private $mt4_account;
+
+    /**
      * @Assert\NotBlank(message="type tidak boleh kosong")
      * @var string
      */
@@ -57,6 +64,22 @@ class ClaimRebateCommand implements CommandInterface
     public function setType($type)
     {
         $this->type = $type;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMt4Account()
+    {
+        return $this->mt4_account;
+    }
+
+    /**
+     * @param int $mt4_account
+     */
+    public function setMt4Account($mt4_account)
+    {
+        $this->mt4_account = $mt4_account;
     }
 
     /**

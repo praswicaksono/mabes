@@ -18,6 +18,12 @@ class ClaimRebate
     private $claim_id;
 
     /**
+     * @Column(type="integer")
+     * @var int
+     */
+    private $mt4_account;
+
+    /**
      * @Column(type="string", length=64)
      * @var string
      */
@@ -76,6 +82,22 @@ class ClaimRebate
     public function setMember($member)
     {
         $this->member = $member;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMt4Account()
+    {
+        return $this->mt4_account;
+    }
+
+    /**
+     * @param mixed $mt4_account
+     */
+    public function setMt4Account($mt4_account)
+    {
+        $this->mt4_account = $mt4_account;
     }
 }
 
