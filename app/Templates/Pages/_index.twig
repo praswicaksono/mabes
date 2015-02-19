@@ -3,17 +3,14 @@
 {% block pagetitle %}Welcome{% endblock %}
 
 {% block content %}
-	<div class="jumbotron welcome-image" style="background-image:url('/images/banner.jpg')">
+	<div class="jumbotron welcome-image head-image" style="background-image:url('/images/banner.jpg')">
 		<h2 class="sr-only">MabesForex <small>Secure Area</small></h2>
 		<p class="sr-only">Welcome to Mabesforex Secure Area!</p>
 	</div>
-	{# DEBUG: USE REAL CONTENT #}
 	{% include 'Components/_paragraph.twig' with {'lead_content': 'Selamat datang di daerah steril MabesFx. Di sini anda dapat melakukan aktivitas finansial anda secara aman dan terkendali. Kami menyediakan berbagai macam fasilitas yang dapat anda gunakan untuk membantu kelancaran trading anda.'} %}
-	<div class="row marketing">
-		<div class="col-xs-12">
-				<img class="img-responsive center-block" src="/images/banner-1.jpg" alt="">
-		</div>
+	<div class="jumbotron welcome-image" style="background-image:url('/images/banner-1.jpg');background-size:cover;border:1px solid #ddd">
+		<h2 class="sr-only">MabesForex <small>Secure Area</small></h2>
+		<p class="sr-only">Welcome to Mabesforex Secure Area!</p>
 	</div>
-	{# DEBUG: USE REAL CONTENT #}
-	{% include 'Components/_paragraph.twig' with {'content': 'Jika mengalami kesulitan dalam penggunaan halaman ini, jangan ragu-ragu untuk menghubungi kami melalui email ke support@mabesfx.com atau gunakan salah satu kontak yang tersedia pada halaman <a href="http://mabesfx.com/kontak/">kontak</a> jika ada pertanyaan yang berhubungan dengan deposit, withdrawal, dan rebates pada akun trading Anda.'} %}
+	{% include 'Components/_paragraph.twig' with {'content': 'Jika mengalami kesulitan dalam penggunaan halaman ini, jangan ragu untuk menghubungi kami melalui email ke <a href="mailto:support@mabesfx.com">support@mabesfx.com</a> atau gunakan salah satu kontak yang tersedia pada halaman <a href="http://mabesfx.com/kontak/">kontak</a> jika ada pertanyaan yang berhubungan dengan deposit, withdrawal, dan rebates pada akun trading Anda.'} %}
 {% endblock %}
