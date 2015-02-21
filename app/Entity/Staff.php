@@ -53,7 +53,7 @@ class Staff
      */
     public function setPassword($password)
     {
-        $this->password = password_hash($password, PASSWORD_BCRYPT, ["cost" => 10]);
+        $this->password = $password;
     }
 
     /**
@@ -62,15 +62,6 @@ class Staff
     public function getPassword()
     {
         return $this->password;
-    }
-
-    /**
-     * @param string $password
-     * @return bool
-     */
-    public function verifyPassword($password)
-    {
-        return password_verify($password, $this->password);
     }
 
     /**
