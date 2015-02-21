@@ -2,6 +2,8 @@
 
 namespace Mabes\Controllers;
 
+use Mabes\Service\Command\AuthCommand;
+
 class AuthController extends BaseController
 {
 
@@ -19,31 +21,35 @@ class AuthController extends BaseController
         $this->app->session->user_ip = null;
     }
 
-    public function postLogin()
-    {
-        $username = $this->app->request->params("username");
-        $password = $this->app->request->params("password");
-
-        $staff = $this->app->em->getRepository("Mabes\\Entity\\Staff")->findOneBy(["username" => "$username"]);
-        if ($staff != null) {
-            if ($staff->verifyPassword($password)) {
-                $this->setLoginToken();
-                $this->app->response->redirect("{$this->app->config["base_url"]}administrator/withdrawal");
-            }
-        }
-
-        $data['isError'] = true;
-        $data['errorTitle'] = "Login Message";
-        $data['errorMessage'] = "invalid username or password";
-
-        $this->app->render('Pages/_login.twig', $data);
-    }
-
     public function getLogin()
     {
         if (isset($this->app->session->token)) {
             $this->app->response->redirect("{$this->app->config["base_url"]}administrator/withdrawal");
         }
+
+        $this->app->render('Pages/_login.twig');
+    }
+
+    public function postLogin()
+    {
+       try {
+           $auth_service = $this->app->container->get("AuthService");
+
+           $auth_command = new AuthCommand();
+           $auth_command->massAssignment($this->app->request->post());
+
+           $auth_service->execute($auth_command);
+
+           $this->setLoginToken();
+
+           $this->app->response->redirect("{$this->app->config["base_url"]}administrator/withdrawal");
+       } catch (\DomainException $e) {
+           $this->validationMessage(
+               [
+                   "custom" => $e->getMessage()
+               ]
+           );
+       }
 
         $this->app->render('Pages/_login.twig');
     }

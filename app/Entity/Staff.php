@@ -6,7 +6,7 @@ namespace Mabes\Entity;
 use Mabes\Core\CommonBehaviour\MassAssignmentTrait;
 
 /**
- * @Entity
+ * @Entity(repositoryClass="StaffRepository")
  * @Table(name="staff")
  * @HasLifecycleCallbacks
  **/

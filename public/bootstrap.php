@@ -145,6 +145,19 @@ $app->container->singleton(
     }
 );
 
+// AuthService
+$app->container->singleton(
+    "AuthService",
+    function () use ($app) {
+        $staff_repo = $app->container->get("em")->getRepository("Mabes\\Entity\\Staff");
+        $auth_password_service = new \Mabes\Service\AuthPasswordService();
+        $validator = $app->container->get("Validator");
+        $event_emitter = $app->container->get("EventEmitter");
+
+        return new \Mabes\Service\AuthService($staff_repo, $auth_password_service, $validator, $event_emitter);
+    }
+);
+
 // MailerService
 $app->container->singleton(
     "MailerService",
