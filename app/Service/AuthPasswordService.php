@@ -17,7 +17,7 @@ class AuthPasswordService
 
     public function __construct($raw_password = "", $password = "")
     {
-        $this->$raw_password = $raw_password;
+        $this->raw_password = $raw_password;
         $this->password = $password;
     }
 
@@ -55,11 +55,11 @@ class AuthPasswordService
 
     public function auth()
     {
-        if ($this->password == null || $this->raw_password = null) {
+        if ($this->password == null || $this->raw_password == null) {
             return false;
         }
 
-        if (!password_verify($this->raw_password, $this->password)) {
+        if (! password_verify($this->raw_password, $this->password)) {
             return false;
         }
 
