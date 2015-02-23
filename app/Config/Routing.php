@@ -209,9 +209,16 @@ return [
     ],
     [
         "http_method" => "get",
-        "route" => "/administrator/deposit",
+        "route" => "/administrator/deposits/done/:num",
         "class" => "\\Mabes\\Controllers\\AdminDepositController",
-        "method" => "getAdminDeposit",
+        "method" => "getAdminDepositMarkAsDone",
+        "auth" => true
+    ],
+    [
+        "http_method" => "get",
+        "route" => "/administrator/withdrawal/done/:num",
+        "class" => "\\Mabes\\Controllers\\AdminWithdrawalController",
+        "method" => "getAdminWithdrawalMarkAsDone",
         "auth" => true
     ]
 ];

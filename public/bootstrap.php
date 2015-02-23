@@ -145,6 +145,30 @@ $app->container->singleton(
     }
 );
 
+// DepositMarkAsDoneService
+$app->container->singleton(
+    "DepositMarkAsDoneService",
+    function () use ($app) {
+        $deposit_repo = $app->container->get("em")->getRepository("Mabes\\Entity\\Deposit");
+        $validator = $app->container->get("Validator");
+        $event_emitter = $app->container->get("EventEmitter");
+
+        return new \Mabes\Service\DepositMarkAsDoneService($deposit_repo, $validator, $event_emitter);
+    }
+);
+
+// WithdrawalMarkAsDoneService
+$app->container->singleton(
+    "DepositMarkAsDoneService",
+    function () use ($app) {
+        $withdrawal_repo = $app->container->get("em")->getRepository("Mabes\\Entity\\Withdrawal");
+        $validator = $app->container->get("Validator");
+        $event_emitter = $app->container->get("EventEmitter");
+
+        return new \Mabes\Service\WithdrawalMarkAsDoneService($withdrawal_repo, $validator, $event_emitter);
+    }
+);
+
 // AuthService
 $app->container->singleton(
     "AuthService",
