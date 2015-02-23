@@ -46,7 +46,7 @@ $app->view->parserOptions = [
     "autoescape" => true
 ];
 
-$app->view->parserExtensions = array(new \Slim\Views\TwigExtension());
+$app->view->parserExtensions = array(new \Slim\Views\TwigExtension(), new Twig_Extension_Debug());
 
 // load database module
 $app->container->singleton(
@@ -155,6 +155,19 @@ $app->container->singleton(
         $event_emitter = $app->container->get("EventEmitter");
 
         return new \Mabes\Service\AuthService($staff_repo, $auth_password_service, $validator, $event_emitter);
+    }
+);
+
+// CreateStaffService
+$app->container->singleton(
+    "CreateStaffService",
+    function () use ($app) {
+        $staff_repo = $app->container->get("em")->getRepository("Mabes\\Entity\\Staff");
+        $hash_service = new \Mabes\Service\HashService();
+        $validator = $app->container->get("Validator");
+        $event_emitter = $app->container->get("EventEmitter");
+
+        return new \Mabes\Service\CreateStaffService($staff_repo, $hash_service, $validator, $event_emitter);
     }
 );
 

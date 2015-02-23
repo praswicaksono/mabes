@@ -1,0 +1,49 @@
+{% extends 'base.twig' %}
+
+{% block pagetitle %}Administrator - Klaim Rebates{% endblock %}
+
+{% set adminTemplate = true %}
+{% set withoutHeader = true %}
+{% set withoutFooter = true %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Klaim Rebates - {{ claim_rebates|length }} akun</div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered" data-render-table>
+                            <thead>
+                            <tr>
+                                <td valign="middle" class="text-center">MyHotForexId</td>
+                                <td valign="middle" class="text-center">Akun Trading</td>
+                                <td valign="middle" class="text-center">Klaim Ke</td>
+                                <td valign="middle" class="text-center">Detail Bank</td>
+                            </tr>
+                            </thead>
+                            {% for item in claim_rebates %}
+                                <tr>
+                                    <td valign="middle" class="text-center">
+                                        <span class="ticketID"><strong>{{ item.getMember().getAccountId() }}</strong></span>
+                                    </td>
+                                    <td valign="middle" class="text-center">
+                                        <span class="amount">{{ item.getMt4Account() }}</span>
+                                    </td>
+                                    <td valign="middle" class="text-center">
+                                        <span class="accNumber">{{ item.getType() }}</span>
+                                    </td>
+                                    <td valign="middle" class="text-center">
+                                        <span class="accNumber">{{ item.getMember().getAccountNumber() }} - {{ item.getMember.getBankName() }}</span>
+                                        <br>
+                                        <span class="accName">a/n {{ item.getMember().getFullname() }}</span>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

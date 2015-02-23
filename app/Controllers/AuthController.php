@@ -23,7 +23,7 @@ class AuthController extends BaseController
 
     public function getLogin()
     {
-        if (isset($this->app->session->token)) {
+        if (! is_null($this->app->session->token)) {
             $this->app->response->redirect("{$this->app->config["base_url"]}administrator/withdrawal");
         }
 
@@ -57,7 +57,7 @@ class AuthController extends BaseController
     public function getLogout()
     {
         $this->destroyLoginToken();
-        $this->app->response->redirect("{$this->app->config["base_url"]}administrator/login");
+        $this->app->response->redirect("{$this->app->config["base_url"]}auth/login");
     }
 }
 

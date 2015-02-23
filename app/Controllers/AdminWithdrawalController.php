@@ -10,7 +10,6 @@ class AdminWithdrawalController extends BaseController
     {
         $data["withdrawal"] = $this->app->em->getRepository("Mabes\\Entity\\Withdrawal")
             ->findBy(["status" => Withdrawal::STATUS_OPEN]);
-
         $this->app->render('Pages/_admin_withdrawal.twig', $data);
     }
 }

@@ -167,6 +167,34 @@ return [
     ],
     [
         "http_method" => "get",
+        "route" => "/administrator/accounts",
+        "class" => "\\Mabes\\Controllers\\AdminAccountController",
+        "method" => "getListAccount",
+        "auth" => true
+    ],
+    [
+        "http_method" => "get",
+        "route" => "/administrator/claim-rebates",
+        "class" => "\\Mabes\\Controllers\\AdminClaimRebatesController",
+        "method" => "getAdminClaimRebates",
+        "auth" => true
+    ],
+    [
+        "http_method" => "get",
+        "route" => "/administrator/deposits",
+        "class" => "\\Mabes\\Controllers\\AdminDepositController",
+        "method" => "getAdminDeposits",
+        "auth" => true
+    ],
+    [
+        "http_method" => "get",
+        "route" => "/administrator/investor-password",
+        "class" => "\\Mabes\\Controllers\\AdminInvestorPasswordController",
+        "method" => "getAdminInvestorPasswords",
+        "auth" => true
+    ],
+    [
+        "http_method" => "get",
         "route" => "/administrator",
         "class" => "\\Mabes\\Controllers\\AdminController",
         "method" => "index",

@@ -32,7 +32,7 @@ class SecurityMiddleware extends Middleware
 
     private function checkToken()
     {
-        if (!isset($this->app->session->token)) {
+        if (is_null($this->app->session->token)) {
             return false;
         }
 

@@ -5,9 +5,7 @@ require __DIR__ . "/vendor/autoload.php";
 require __DIR__ . "/public/bootstrap.php";
 
 $console = new Application();
-$console->add(new \Mabes\Commands\ImportRebateCommand());
-$console->add(new \Mabes\Commands\InstallCommand());
-$console->add(new \Mabes\Commands\InitCommand());
+$console->add(new \Mabes\Commands\CreateStaffCommand());
 $console->run();
 
 // EOF
