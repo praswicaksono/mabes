@@ -37,13 +37,6 @@ return [
         "auth" => false
     ],
     [
-        "http_method" => "get",
-        "route" => "/klaim-rebates",
-        "class" => "\\Mabes\\Controllers\\ClaimRebatesController",
-        "method" => "getClaimRebates",
-        "auth" => false
-    ],
-    [
         "http_method" => "post",
         "route" => "/klaim-rebates",
         "class" => "\\Mabes\\Controllers\\ClaimRebatesController",
