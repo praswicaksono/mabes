@@ -5,6 +5,7 @@ namespace Mabes\Service\Command;
 use Mabes\Core\CommonBehaviour\MassAssignmentTrait;
 use Mabes\Core\CommonBehaviour\RepositoryAwareTrait;
 use Mabes\Core\Contracts\CommandInterface;
+use Mabes\Entity\Member;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -174,7 +175,15 @@ class CreateMemberCommand implements CommandInterface
         $this->account_holder = $account_holder;
     }
 
+    /**
+     * @Assert\False(message="MyHotForex ID sudah terdaftar didalam database, untuk mengubah silahkan hubungi CS")
+     */
+    public function isMemberExist()
+    {
+        $member = $this->getRepository()->findOneBy(["account_id" => $this->getAccountId()]);
 
+        return $member instanceof Member ? true : false;
+    }
 }
 
 // EOF
