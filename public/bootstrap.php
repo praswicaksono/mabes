@@ -3,6 +3,8 @@
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
+@date_default_timezone_set("Asia/Jakarta");
+
 define("APP_DIR", __DIR__ . "/../app/");
 define("PUBLIC_DIR", __DIR__);
 
