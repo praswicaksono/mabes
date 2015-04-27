@@ -29,7 +29,7 @@
                                     <td valign="middle" class="text-center">
                                         <span class="ticketID"><strong>{{ item.getDepositId() }}</strong></span>
                                         <br>
-                                        <span class="date">{{ item.getCreatedAt() }}</span>
+                                        <span class="date">{{ item.getCreatedAt.format("Y-m-d") }}</span>
                                     </td>
                                     <td valign="middle" class="text-center">
                                         <span class="amount">{{ item.getAmountIdr()|number_format }}</span>
