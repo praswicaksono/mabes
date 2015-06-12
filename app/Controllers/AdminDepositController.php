@@ -16,6 +16,14 @@ class AdminDepositController extends BaseController
         $this->app->render('Pages/_admin_deposit.twig', $data);
     }
 
+    public function getProcessedDeposit()
+    {
+        $data["deposits"] = $this->app->em->getRepository("Mabes\\Entity\\Deposit")
+            ->findBy(["status" => Deposit::STATUS_PROCESSED]);
+        $data["base_url"] = $this->app->config["base_url"];
+        $this->app->render('Pages/_complete_admin_deposit.twig', $data);
+    }
+
     public function getAdminDepositMarkAsDone($deposit_id = 0)
     {
         try {
