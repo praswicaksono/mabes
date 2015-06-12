@@ -4,6 +4,7 @@ namespace Mabes\Controllers;
 
 use Mabes\Entity\Withdrawal;
 use Mabes\Service\Command\WithdrawalMarkAsDoneCommand;
+use Mabes\Service\Command\WithdrawalMarkAsFailedCommand;
 
 class AdminWithdrawalController extends BaseController
 {
@@ -23,10 +24,27 @@ class AdminWithdrawalController extends BaseController
         $this->app->render('Pages/_complete_admin_withdrawal.twig', $data);
     }
 
+    public function getAdminWithdrawalMarkAsFailed($withdrawal_id = 0)
+    {
+        try {
+            $withdrawal_failed_service = $this->app->container->get("WithdrawalMarkAsFailedService");
+
+            $withdrawal_failed_command = new WithdrawalMarkAsFailedCommand();
+            $withdrawal_failed_command->massAssignment([
+                "withdrawal_id" => $withdrawal_id
+            ]);
+
+            $withdrawal_failed_service->execute($withdrawal_failed_command);
+            $this->app->response->redirect("{$this->app->config["base_url"]}administrator/withdrawal");
+        } catch (\DomainException $e) {
+            echo $e->getMessage();
+        }
+    }
+
     public function getAdminWithdrawalMarkAsDone($withdrawal_id = 0)
     {
         try {
-            $withdrawal_done_service = $this->app->container->get("DepositMarkAsDoneService");
+            $withdrawal_done_service = $this->app->container->get("WithdrawalMarkAsDoneService");
 
             $withdrawal_done_command = new WithdrawalMarkAsDoneCommand();
             $withdrawal_done_command->massAssignment([

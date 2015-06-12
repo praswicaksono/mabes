@@ -171,6 +171,30 @@ $app->container->singleton(
     }
 );
 
+// WithdrawalMarkAsFailedService
+$app->container->singleton(
+    "WithdrawalMarkAsFailedService",
+    function () use ($app) {
+        $withdrawal_repo = $app->container->get("em")->getRepository("Mabes\\Entity\\Withdrawal");
+        $validator = $app->container->get("Validator");
+        $event_emitter = $app->container->get("EventEmitter");
+
+        return new \Mabes\Service\WithdrawalMarkAsFailedService($withdrawal_repo, $validator, $event_emitter);
+    }
+);
+
+// DepositMarkAsFailedService
+$app->container->singleton(
+    "DepositMarkAsFailedService",
+    function () use ($app) {
+        $deposit_repo = $app->container->get("em")->getRepository("Mabes\\Entity\\Deposit");
+        $validator = $app->container->get("Validator");
+        $event_emitter = $app->container->get("EventEmitter");
+
+        return new \Mabes\Service\DepositMarkAsFailedService($deposit_repo, $validator, $event_emitter);
+    }
+);
+
 // AuthService
 $app->container->singleton(
     "AuthService",
@@ -267,7 +291,7 @@ $emitter->on(
     "deposit.created",
     function ($data) use ($app) {
         $mailer = $app->container->get("MailerService");
-        $mailer->createMessage("Notifikasi Deposit MabesFx")
+        $mailer->createMessage("Notifikasi Deposit")
             ->send(
                 "deposit",
                 [
@@ -285,7 +309,7 @@ $emitter->on(
     "withdrawal.created",
     function ($data) use ($app) {
         $mailer = $app->container->get("MailerService");
-        $mailer->createMessage("Notifikasi Withdrawal MabesFx")
+        $mailer->createMessage("Notifikasi Withdrawal")
             ->send(
                 "withdrawal",
                 [
@@ -303,7 +327,7 @@ $emitter->on(
     "validation.created",
     function ($data) use ($app) {
         $mailer = $app->container->get("MailerService");
-        $mailer->createMessage("Notifikasi Validasi MabesFx")
+        $mailer->createMessage("Notifikasi Validasi")
             ->send(
                 "validation",
                 [
@@ -321,7 +345,7 @@ $emitter->on(
     "claim.rebate.created",
     function ($data) use ($app) {
         $mailer = $app->container->get("MailerService");
-        $mailer->createMessage("Notifikasi Klaim Rebate MabesFx")
+        $mailer->createMessage("Notifikasi Klaim Rebate")
             ->send(
                 "klaim_rebate",
                 [
@@ -339,7 +363,7 @@ $emitter->on(
     "akun.islami.created",
     function ($data) use ($app) {
         $mailer = $app->container->get("MailerService");
-        $mailer->createMessage("Notifikasi Akun Islami MabesFx")
+        $mailer->createMessage("Notifikasi Akun Islami")
             ->send(
                 "islamic_account",
                 [
@@ -357,7 +381,7 @@ $emitter->on(
     "investor.password.created",
     function ($data) use ($app) {
         $mailer = $app->container->get("MailerService");
-        $mailer->createMessage("Notifikasi Investor Password MabesFx")
+        $mailer->createMessage("Notifikasi Investor Password")
             ->send(
                 "investor_password",
                 [
@@ -375,7 +399,7 @@ $emitter->on(
     "admin.deposit.processed",
     function ($data) use ($app) {
         $mailer = $app->container->get("MailerService");
-        $mailer->createMessage("Notifikasi Deposit Telah Diproses MabesFx")
+        $mailer->createMessage("Notifikasi Deposit Telah Diproses")
             ->send(
                 "deposit_processed",
                 [
@@ -393,9 +417,45 @@ $emitter->on(
     "admin.withdrawal.processed",
     function ($data) use ($app) {
         $mailer = $app->container->get("MailerService");
-        $mailer->createMessage("Notifikasi Withdrawal Telah Diproses MabesFx")
+        $mailer->createMessage("Notifikasi Withdrawal Telah Diproses")
             ->send(
                 "withdrawal_processed",
+                [
+                    "support@mabesfx.com" => "MabesFx Support"
+                ],
+                [
+                    $data["email"], "support@mabesfx.com"
+                ],
+                $data
+            );
+    }
+);
+
+$emitter->on(
+    "admin.withdrawal.failed",
+    function ($data) use ($app) {
+        $mailer = $app->container->get("MailerService");
+        $mailer->createMessage("Notifikasi Withdrawal Gagal")
+            ->send(
+                "withdrawal_failed",
+                [
+                    "support@mabesfx.com" => "MabesFx Support"
+                ],
+                [
+                    $data["email"], "support@mabesfx.com"
+                ],
+                $data
+            );
+    }
+);
+
+$emitter->on(
+    "admin.deposit.failed",
+    function ($data) use ($app) {
+        $mailer = $app->container->get("MailerService");
+        $mailer->createMessage("Notifikasi Deposit Gagal")
+            ->send(
+                "deposit_failed",
                 [
                     "support@mabesfx.com" => "MabesFx Support"
                 ],

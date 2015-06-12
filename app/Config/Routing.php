@@ -232,14 +232,14 @@ return [
         "http_method" => "get",
         "route" => "/administrator/deposits/delete/:num",
         "class" => "\\Mabes\\Controllers\\AdminDepositController",
-        "method" => "getAdminDepositMarkAsDone",
+        "method" => "getAdminDepositMarkAsFailed",
         "auth" => true
     ],
     [
         "http_method" => "get",
         "route" => "/administrator/withdrawal/delete/:num",
         "class" => "\\Mabes\\Controllers\\AdminWithdrawalController",
-        "method" => "getAdminWithdrawalMarkAsDone",
+        "method" => "getAdminWithdrawalMarkAsFailed",
         "auth" => true
     ]
 ];
