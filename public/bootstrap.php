@@ -161,7 +161,7 @@ $app->container->singleton(
 
 // WithdrawalMarkAsDoneService
 $app->container->singleton(
-    "DepositMarkAsDoneService",
+    "WithdrawalMarkAsDoneService",
     function () use ($app) {
         $withdrawal_repo = $app->container->get("em")->getRepository("Mabes\\Entity\\Withdrawal");
         $validator = $app->container->get("Validator");
