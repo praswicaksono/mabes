@@ -370,3 +370,39 @@ $emitter->on(
             );
     }
 );
+
+$emitter->on(
+    "admin.deposit.processed",
+    function ($data) use ($app) {
+        $mailer = $app->container->get("MailerService");
+        $mailer->createMessage("Notifikasi Deposit Telah Diproses MabesFx")
+            ->send(
+                "deposit_processed",
+                [
+                    "support@mabesfx.com" => "MabesFx Support"
+                ],
+                [
+                    $data["email"], "support@mabesfx.com"
+                ],
+                $data
+            );
+    }
+);
+
+$emitter->on(
+    "admin.withdrawal.processed",
+    function ($data) use ($app) {
+        $mailer = $app->container->get("MailerService");
+        $mailer->createMessage("Notifikasi Withdrawal Telah Diproses MabesFx")
+            ->send(
+                "withdrawal_processed",
+                [
+                    "support@mabesfx.com" => "MabesFx Support"
+                ],
+                [
+                    $data["email"], "support@mabesfx.com"
+                ],
+                $data
+            );
+    }
+);

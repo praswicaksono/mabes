@@ -21,6 +21,8 @@ class Deposit
 
     const STATUS_PROCESSED = 2;
 
+    const STATUS_FAILED = 3;
+
     /**
      * @Id @Column(type="integer") @GeneratedValue
      * @var int

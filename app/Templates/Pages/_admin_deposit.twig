@@ -47,6 +47,9 @@
                                         <div class="btn-group btn-group-justified btn-group-xs">
                                             <a href="{{ base_url }}administrator/deposits/done/{{ item.getDepositId() }}" class="btn btn-primary">Set Done</a>
                                         </div>
+                                        <div class="btn-group btn-group-justified btn-group-xs">
+                                            <a href="{{ base_url }}administrator/deposits/delete/{{ item.getDepositId() }}" class="btn btn-primary">Set Failed</a>
+                                        </div>
                                     </td>
                                 </tr>
                             {% endfor %}

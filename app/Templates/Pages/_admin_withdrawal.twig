@@ -49,6 +49,9 @@
                                         <div class="btn-group btn-group-justified btn-group-xs">
                                             <a href="{{ base_url }}administrator/withdrawal/done/{{ item.getWithdrawalId() }}" class="btn btn-primary">Set Done</a>
                                         </div>
+                                        <div class="btn-group btn-group-justified btn-group-xs">
+                                            <a href="{{ base_url }}administrator/withdrawal/delete/{{ item.getWithdrawalId() }}" class="btn btn-primary">Set Failed</a>
+                                        </div>
                                     </td>
                                 </tr>
                             {% endfor %}

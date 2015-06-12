@@ -58,7 +58,18 @@ class DepositMarkAsDoneService
 
         $this->deposit_repository->save($deposit);
 
-        $this->event_emitter->emit("admin.deposit.processed");
+        $data = [
+            "email" => $deposit->getClient()->getEmail(),
+            "ticket" => $deposit->getDepositId(),
+            "full_name" => $deposit->getClient()->getFullName(),
+            "account_id" => $deposit->getClient()->getAccountId(),
+            "amount_idr" => $deposit->getAmountIdr(),
+            "amount_usd" => $deposit->getAmountUsd(),
+            "bank_name" => $deposit->getToBank(),
+            "date" => date("Y-m-d H:i:s")
+        ];
+
+        $this->event_emitter->emit("admin.deposit.processed", [$data]);
 
         return true;
     }

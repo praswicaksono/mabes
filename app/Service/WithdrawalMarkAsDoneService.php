@@ -62,7 +62,19 @@ class WithdrawalMarkAsDoneService
 
         $this->withdrawal_repository->save($withdrawal);
 
-        $this->event_emitter->emit("admin.withdrawal.processed");
+        $data = [
+            "email" => $withdrawal->getClient()->getEmail(),
+            "account_id" => $withdrawal->getClient()->getAccountId(),
+            "full_name" => $withdrawal->getClient()->getFullName(),
+            "ticket" => $withdrawal->getWithdrawalId(),
+            "amount" => $withdrawal->getAmount(),
+            "bank_name" => $withdrawal->getClient()->getBankName(),
+            "account_number" => $withdrawal->getClient()->getAccountNumber(),
+            "account_holder" => $withdrawal->getClient()->getAccountHolder(),
+            "date" => date("Y-m-d H:i:s")
+        ];
+
+        $this->event_emitter->emit("admin.withdrawal.processed", [$data]);
 
         return true;
     }
