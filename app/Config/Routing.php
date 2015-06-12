@@ -10,14 +10,14 @@ return [
     ],
     [
         "http_method" => "get",
-        "route" => "/investor-password",
+        "route" => "/klaim-promo",
         "class" => "\\Mabes\\Controllers\\InvestorPasswordController",
         "method" => "getInvestorPassword",
         "auth" => false
     ],
     [
         "http_method" => "post",
-        "route" => "/investor-password",
+        "route" => "/klaim-promo",
         "class" => "\\Mabes\\Controllers\\InvestorPasswordController",
         "method" => "postInvestorPassword",
         "auth" => false
@@ -181,6 +181,13 @@ return [
     ],
     [
         "http_method" => "get",
+        "route" => "/administrator/deposits/processed",
+        "class" => "\\Mabes\\Controllers\\AdminDepositController",
+        "method" => "getProcessedDeposit",
+        "auth" => true
+    ],
+    [
+        "http_method" => "get",
         "route" => "/administrator/investor-password",
         "class" => "\\Mabes\\Controllers\\AdminInvestorPasswordController",
         "method" => "getAdminInvestorPasswords",
@@ -198,6 +205,13 @@ return [
         "route" => "/administrator/withdrawal",
         "class" => "\\Mabes\\Controllers\\AdminWithdrawalController",
         "method" => "getAdminWithdrawal",
+        "auth" => true
+    ],
+    [
+        "http_method" => "get",
+        "route" => "/administrator/withdrawal/processed",
+        "class" => "\\Mabes\\Controllers\\AdminWithdrawalController",
+        "method" => "getProcessedWithdrawal",
         "auth" => true
     ],
     [
