@@ -28,7 +28,7 @@ class AdminDepositController extends BaseController
     public function getAdminDepositMarkAsFailed($deposit_id = 0)
     {
         try {
-            $depo_failed_service = $this->app->container->get("DepositMarkAsDoneService");
+            $depo_failed_service = $this->app->container->get("DepositMarkAsFailedService");
 
             $depo_failed_command = new DepositMarkAsFailedCommand();
             $depo_failed_command->massAssignment([
