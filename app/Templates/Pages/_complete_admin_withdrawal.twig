@@ -16,6 +16,7 @@
                         <table class="table table-hover table-bordered" data-render-table>
                             <thead>
                             <tr>
+                                <td valign="middle" class="text-center">Ticket</td>
                                 <td valign="middle" class="text-center">Date</td>
                                 <td valign="middle" class="text-center">Jumlah (USD)</td>
                                 <td valign="middle" class="text-center">MyHotForexId</td>
@@ -25,6 +26,9 @@
                             </thead>
                             {% for item in withdrawal %}
                                 <tr>
+                                    <td valign="middle" class="text-center">
+                                        <span class="date">{{ item.getWithdrawalId() }}</span>
+                                    </td>
                                     <td valign="middle" class="text-center">
                                         <span class="date">{{ item.getCreatedAt.format("Y-m-d H:i:s") }}</span>
                                     </td>
