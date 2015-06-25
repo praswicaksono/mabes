@@ -19,7 +19,7 @@ class AdminWithdrawalController extends BaseController
     public function getProcessedWithdrawal()
     {
         $data["withdrawal"] = $this->app->em->getRepository("Mabes\\Entity\\Withdrawal")
-            ->findBy(["status" => Withdrawal::STATUS_PROCESSED], ["withdrawal_id" => "ASC"]);
+            ->findBy(["status" => Withdrawal::STATUS_PROCESSED], ["withdrawal_id" => "DESC"]);
         $data["base_url"] = $this->app->config["base_url"];
         $this->app->render('Pages/_complete_admin_withdrawal.twig', $data);
     }
