@@ -25,6 +25,14 @@ class AdminDepositController extends BaseController
         $this->app->render('Pages/_complete_admin_deposit.twig', $data);
     }
 
+    public function getDeletedDeposit()
+    {
+        $data["deposits"] = $this->app->em->getRepository("Mabes\\Entity\\Deposit")
+            ->findBy(["status" => Deposit::STATUS_FAILED], ["deposit_id" => "DESC"]);
+        $data["base_url"] = $this->app->config["base_url"];
+        $this->app->render('Pages/_deleted_admin_deposit.twig', $data);
+    }
+
     public function getAdminDepositMarkAsFailed($deposit_id = 0)
     {
         try {
