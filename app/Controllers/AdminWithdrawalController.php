@@ -24,6 +24,14 @@ class AdminWithdrawalController extends BaseController
         $this->app->render('Pages/_complete_admin_withdrawal.twig', $data);
     }
 
+    public function getDeletedWithdrawal()
+    {
+        $data["withdrawal"] = $this->app->em->getRepository("Mabes\\Entity\\Withdrawal")
+            ->findBy(["status" => Withdrawal::STATUS_FAILED], ["withdrawal_id" => "DESC"]);
+        $data["base_url"] = $this->app->config["base_url"];
+        $this->app->render('Pages/_deleted_admin_withdrawal.twig', $data);
+    }
+
     public function getAdminWithdrawalMarkAsFailed($withdrawal_id = 0)
     {
         try {
