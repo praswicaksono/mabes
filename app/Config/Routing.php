@@ -188,6 +188,13 @@ return [
     ],
     [
         "http_method" => "get",
+        "route" => "/administrator/deposits/deleted",
+        "class" => "\\Mabes\\Controllers\\AdminDepositController",
+        "method" => "getDeletedDeposit",
+        "auth" => true
+    ],
+    [
+        "http_method" => "get",
         "route" => "/administrator/investor-password",
         "class" => "\\Mabes\\Controllers\\AdminInvestorPasswordController",
         "method" => "getAdminInvestorPasswords",
