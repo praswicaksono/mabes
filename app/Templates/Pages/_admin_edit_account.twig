@@ -1,0 +1,9 @@
+{% extends 'base.twig' %}
+
+{% block pagetitle %}Edit Akun{% endblock %}
+
+{% block content %}
+    {# DEBUG: USE REAL CONTENT #}
+    {% include 'Components/_paragraph.twig' with {'title_content': 'Edit Data Akun', 'content': 'Pastikan bahwa data yang anda masukkan benar dan sesuai data client.'} %}
+    {% include 'Components/_forms.twig' with {'form_template': 'edit_account'} %}
+{% endblock %}

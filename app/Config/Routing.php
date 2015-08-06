@@ -167,6 +167,20 @@ return [
     ],
     [
         "http_method" => "get",
+        "route" => "/administrator/account/edit/:num",
+        "class" => "\\Mabes\\Controllers\\AdminAccountController",
+        "method" => "getEditAccount",
+        "auth" => true
+    ],
+    [
+        "http_method" => "post",
+        "route" => "/administrator/account/edit/:num",
+        "class" => "\\Mabes\\Controllers\\AdminAccountController",
+        "method" => "postEditAccount",
+        "auth" => true
+    ],
+    [
+        "http_method" => "get",
         "route" => "/administrator/claim-rebates",
         "class" => "\\Mabes\\Controllers\\AdminClaimRebatesController",
         "method" => "getAdminClaimRebates",
