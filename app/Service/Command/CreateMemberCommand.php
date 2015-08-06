@@ -63,6 +63,17 @@ class CreateMemberCommand implements CommandInterface
      */
     protected $account_holder;
 
+
+    /**
+     * @var string
+     * @Assert\NotBlank(message="Alamat tidak boleh kosong")
+     * @Assert\Length(
+     *      min = 10,
+     *      minMessage = "Panjang alamat minimal 10 karakter"
+     * )
+     */
+    protected $address;
+
     /**
      * @return int
      */
@@ -184,6 +195,24 @@ class CreateMemberCommand implements CommandInterface
 
         return $member instanceof Member ? true : false;
     }
+
+    /**
+     * @param string $address
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+
 }
 
 // EOF
