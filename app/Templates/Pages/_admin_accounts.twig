@@ -19,6 +19,7 @@
                                 <td valign="middle" class="text-center">MyHotForexId</td>
                                 <td valign="middle" class="text-center">Nama Lengkap</td>
                                 <td valign="middle" class="text-center">Detail Bank</td>
+                                <td valign="middle" class="text-center">Alamat</td>
                                 <td valign="middle" class="text-center">Kontak</td>
                             </tr>
                             </thead>
@@ -39,6 +40,9 @@
                                         <span class="email">{{ item.getEmail() }}</span>
                                         <br>
                                         <span class="phone">{{ item.getPhone() }}</span>
+                                    </td>
+                                    <td class="text-left">
+                                        <span class="address">{{ item.getAddress() }}</span>
                                     </td>
                                 </tr>
                             {% endfor %}
