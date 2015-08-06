@@ -39,7 +39,8 @@ $data = [
     "fullname"=> "John Doe",
     "bank_name" => "BCA",
     "account_number" => "123456789",
-    "account_holder" => "John Doe"
+    "account_holder" => "John Doe",
+    "address" => "55335 Corwin Rd # A970289, Elkhart, Indiana 46514, USA"
 ];
 
 $command = new \Mabes\Service\Command\CreateMemberCommand();
