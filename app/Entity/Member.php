@@ -58,6 +58,12 @@ class Member
     protected $account_holder;
 
     /**
+     * @Column(type="text")
+     * @var string
+     */
+    protected $address;
+
+    /**
      * @OneToOne(targetEntity="ClaimRebate", mappedBy="member")
      * @var ClaimRebate
      */
@@ -312,6 +318,24 @@ class Member
     {
         $this->claim_rebate = $claim_rebate;
     }
+
+    /**
+     * @param string $address
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+
 }
 
 // EOF

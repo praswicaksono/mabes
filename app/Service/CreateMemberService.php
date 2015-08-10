@@ -72,6 +72,7 @@ class CreateMemberService
         $member->setAccountHolder($command->getAccountHolder());
         $member->setBankName($command->getBankName());
         $member->setFullName($command->getFullname());
+        $member->setAddress($command->getAddress());
         $member->setPhone($command->getPhone());
 
         $this->member_repo->save($member);
@@ -84,6 +85,7 @@ class CreateMemberService
             "bank_name" => $member->getBankName(),
             "account_number" => $member->getAccountNumber(),
             "account_holder" => $member->getAccountHolder(),
+            "address" => $member->getAddress(),
             "date" => date("Y-m-d H:i:s")
         ];
 
