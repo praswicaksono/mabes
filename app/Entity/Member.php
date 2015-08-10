@@ -58,7 +58,7 @@ class Member
     protected $account_holder;
 
     /**
-     * @Column(type="text)
+     * @Column(length=254)
      * @var string
      */
     protected $address;
