@@ -60,7 +60,7 @@ class EditMemberService
      */
     public function execute(CommandInterface $command)
     {
-        if (!$command instanceof CreateMemberCommand) {
+        if (!$command instanceof EditMemberCommand) {
             throw new \DomainException("Internal error, silahkan hubungi CS kami");
         }
 

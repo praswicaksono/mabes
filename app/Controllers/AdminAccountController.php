@@ -11,12 +11,12 @@ class AdminAccountController extends BaseController
     public function getListAccount()
     {
         $data["accounts"] = $this->app->em->getRepository("Mabes\\Entity\\Member")->findAll();
-        $this->app->render('Pages/_admin_account.twig', $data);
+        $this->app->render('Pages/_admin_accounts.twig', $data);
     }
 
     public function getEditAccount($account_id = 0)
     {
-        $account_detail = $this->app->em->getRepository("Mabes\\Entity\\Member")->find($account_id);
+        $account_detail = $this->app->em->getRepository("Mabes\\Entity\\Member")->findBy(['account_id' => $account_id]);
 
         $this->populateForm($account_detail);
 
