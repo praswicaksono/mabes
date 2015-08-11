@@ -4,6 +4,7 @@
 namespace Mabes\Controllers;
 
 use Mabes\Entity\Member;
+use Mabes\Service\Command\EditMemberCommand;
 
 class AdminAccountController extends BaseController
 {
@@ -16,14 +17,16 @@ class AdminAccountController extends BaseController
     public function getEditAccount($account_id = 0)
     {
         $account_detail = $this->app->em->getRepository("Mabes\\Entity\\Member")->find($account_id);
+
+        $this->populateForm($account_detail);
+
         $this->app->view()->appendData(
             [
-                "captcha" => $this->buildCaptcha(),
-                "account" => $account_detail
+                "captcha" => $this->buildCaptcha()
             ]
         );
 
-        $this->app->render('Pages/_edit_account.twig');
+        $this->app->render('Pages/admin_edit_account.twig');
     }
 
     public function postEditAccount($account_id = 0)
@@ -32,15 +35,21 @@ class AdminAccountController extends BaseController
             if ($this->app->session->phrase != $this->app->request->post("captcha")) {
                 throw new \DomainException("Captcha yang anda masukkan salah!");
             }
-            $transfer = new Member();
-            $transfer->massAssignment($this->app->request->post());
 
-            $this->app->em->persist($transfer);
-            $this->app->em->merge($transfer);
-            $this->app->em->flush();
+            $member_service = $this->app->container->get("EditMemberService");
 
-            $data["accounts"] = $this->app->em->getRepository("Mabes\\Entity\\Member")->findAll();
-            $this->app->render('Pages/_admin_accounts.twig', $data);
+            $member_edit_command = new EditMemberCommand();
+            $member_edit_command->massAssignment($this->app->request->post());
+
+            $member_service->execute($member_edit_command);
+
+            $this->app->view()->appendData(
+                [
+                    "isSuccess" => true,
+                    "successTitle" => "Berhasil",
+                    "successMessage" => "Account Number " . $account_id . " berhasil di update"
+                ]
+            );
 
         } catch (\DomainException $e) {
             $this->validationMessage(
@@ -50,15 +59,12 @@ class AdminAccountController extends BaseController
             );
         }
 
-        $account_detail = $this->app->em->getRepository("Mabes\\Entity\\Member")->find($account_id);
         $this->app->view()->appendData(
             [
-                "captcha" => $this->buildCaptcha(),
-                "account" => $account_detail
+                "captcha" => $this->buildCaptcha()
             ]
         );
-
-        $this->app->render('Pages/_edit_account.twig');
+        $this->app->render('Pages/admin_edit_account.twig');
     }
 }
 
