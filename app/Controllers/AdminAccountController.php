@@ -26,7 +26,7 @@ class AdminAccountController extends BaseController
             ]
         );
 
-        $this->app->render('Pages/admin_edit_account.twig');
+        $this->app->render('Pages/_admin_edit_account.twig');
     }
 
     public function postEditAccount($account_id = 0)
@@ -64,7 +64,7 @@ class AdminAccountController extends BaseController
                 "captcha" => $this->buildCaptcha()
             ]
         );
-        $this->app->render('Pages/admin_edit_account.twig');
+        $this->app->render('Pages/_admin_edit_account.twig');
     }
 }
 
