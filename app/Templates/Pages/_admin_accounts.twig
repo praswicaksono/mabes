@@ -12,6 +12,9 @@
             <div class="panel panel-default">
                 <div class="panel-heading">List Akun - {{ accounts|length }} akun</div>
                 <div class="panel-body">
+                    {% if isError or isSuccess %}
+                        {% include 'Components/_message.twig' %}
+                    {% endif %}
                     <div class="table-responsive">
                         <table class="table table-hover table-bordered" data-render-table>
                             <thead>
@@ -19,8 +22,9 @@
                                 <td valign="middle" class="text-center">MyHotForexId</td>
                                 <td valign="middle" class="text-center">Nama Lengkap</td>
                                 <td valign="middle" class="text-center">Detail Bank</td>
-                                <td valign="middle" class="text-center">Alamat</td>
                                 <td valign="middle" class="text-center">Kontak</td>
+                                <td valign="middle" class="text-center">Alamat</td>
+                                <td valign="middle" class="text-center" width="150px">Action</td>
                             </tr>
                             </thead>
                             {% for item in accounts %}
@@ -43,6 +47,11 @@
                                     </td>
                                     <td class="text-left">
                                         <span class="address">{{ item.getAddress() }}</span>
+                                    </td>
+                                    <td valign="middle" class="text-center">
+                                        <div class="btn-group btn-group-justified btn-group-xs">
+                                            <a href="{{ base_url }}administrator/account/edit/{{ item.getAccountId() }}" class="btn btn-primary">Edit</a>
+                                        </div>
                                     </td>
                                 </tr>
                             {% endfor %}
